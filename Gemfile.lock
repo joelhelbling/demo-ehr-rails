@@ -47,6 +47,11 @@ GEM
     capybara-webkit (1.1.0)
       capybara (~> 2.0, >= 2.0.2)
       json
+    carmen (1.0.1)
+      unicode_utils (~> 1.4.0)
+    carmen-rails (1.0.1)
+      carmen (~> 1.0.0)
+      rails
     celluloid (0.15.2)
       timers (~> 1.1.0)
     childprocess (0.5.3)
@@ -197,6 +202,7 @@ GEM
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unicode_utils (1.4.0)
     websocket (1.0.7)
     websocket-driver (0.3.3)
     xpath (2.0.0)
@@ -209,6 +215,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.1.1)
   capybara
   capybara-webkit
+  carmen-rails
   coffee-rails (~> 4.0.0)
   database_cleaner!
   guard
