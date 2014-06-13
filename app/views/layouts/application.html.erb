@@ -19,9 +19,13 @@
   </head>
   <body>
     <%= render :partial => 'application_navbar' %>
-    
-    <div class="container theme-showcase" role="main" ng-view>
 
+    <div class="container theme-showcase" role="main" ng-view>
+    <section class='error-row'>
+      <div class='container'>
+        <%= ehr_error_messages(flash) %>
+      </div>
+    </section>
   	<%= yield %>
 
   	</div>

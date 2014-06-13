@@ -22,7 +22,7 @@
         <%= link_to "#{patient.first_name} #{patient.last_name} (#{patient.date_of_birth})", edit_patient_path(patient) %>
       </td>
       <td class="remove">
-        <%= link_to "X", patient, method: :delete, data: { confirm: 'Are you sure?' }, :class=>'btn btn-xs btn-danger' %>
+        <%= link_to "X", patient, method: :delete, :class=>'btn btn-xs btn-danger' %>
       </td>
     </tr>
     <% end %>

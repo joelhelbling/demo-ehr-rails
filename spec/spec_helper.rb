@@ -19,7 +19,10 @@ require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'capybara/webkit'
 
+
 RSpec.configure do |config|
+  config.include Capybara::DSL
+
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
   # These two settings work together to allow you to limit a spec run
@@ -28,6 +31,7 @@ RSpec.configure do |config|
   # get run.
   config.filter_run :focus
   config.run_all_when_everything_filtered = true
+
 
   # Many RSpec users commonly either run the entire suite or an individual
   # file, and it's useful to allow more verbose output when running an
@@ -63,7 +67,7 @@ RSpec.configure do |config|
     # Enable only the newer, non-monkey-patching expect syntax.
     # For more details, see:
     #   - http://myronmars.to/n/dev-blog/2012/06/rspecs-new-expectation-syntax
-    expectations.syntax = :expect
+    expectations.syntax = :should
   end
 
   # rspec-mocks config goes here. You can use an alternate test double
@@ -79,6 +83,25 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+  # config.before(:suite) do
+  #   DatabaseCleaner.clean_with(:truncation)
+  # end
+
+  # config.before(:each) do
+  #   DatabaseCleaner.strategy = :transaction
+  # end
+
+  # config.before(:each, :js => true) do
+  #   DatabaseCleaner.strategy = :truncation
+  # end
+
+  # config.before(:each) do
+  #   DatabaseCleaner.start
+  # end
+
+  # config.after(:each) do
+  #   DatabaseCleaner.clean
+  # end
 
 end
 
@@ -86,5 +109,7 @@ Capybara.configure do |config|
   config.run_server = false
   config.javascript_driver = :poltergeist
   config.default_driver = :webkit
-  config.server_port = 8000
+  config.app_host = 'http://localhost:3000' # change url
+
+  config.server_port = 3000
 end
