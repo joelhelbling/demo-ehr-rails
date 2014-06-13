@@ -1,0 +1,62 @@
+<%= form_for [@patient, @prescription] do |f| %>
+
+<% if @prescription.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@prescription.errors.count, "error") %> prohibited this prescription from being saved:</h2>
+
+  <ul>
+    <% @prescription.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<fieldset>
+  <legend><%= "#{@patient.first_name} #{@patient.last_name} (#{@patient.date_of_birth})" %></legend>
+
+  <p>
+    <div class="field">
+      <%= f.label :drug_number, "Drug" %><br>
+      <%= f.text_field :drug_number, :class=>'form-control' %>
+    </div>
+  </p>
+
+  <p>
+    <div class="field">
+      <%= f.label :quantity %><br>
+      <%= f.number_field :quantity, :class=>'form-control' %>
+    </div>
+  </p>
+
+  <div class="field">
+    <%= f.label :frequency , "Directions"%><br>
+    <%= f.select :frequency, Prescription::FREQUENCIES, :class=>'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :refills, "Refills" %><br>
+    <%= f.number_field :refills, :class=>'form-control', :in=>0..6 %>
+  </div>
+
+  <p>
+    <div class="field">
+      <%= f.label :dispense_as_written %><br>
+      <%= f.check_box :dispense_as_written, :class=>'form-control' %>
+    </div>
+  </p>
+
+  <p>
+    <div class="actions">
+      <% if @patient.prescriptions.count == 0 %>
+      <%= link_to "Cancel", patients_path, :class=>'btn btn-default' %>
+      <% else %>
+      <%= link_to "Cancel", @patient, :class=>'btn btn-default' %>
+      <% end %>
+      <%= f.submit "Save", :class => 'btn btn-primary create' %>
+    </div>
+  </p>
+
+</fieldset>
+
+<% end %>

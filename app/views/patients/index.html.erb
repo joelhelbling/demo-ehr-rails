@@ -16,10 +16,10 @@
     <% @patients.each do |patient| %>
     <tr class="patients">
       <td class="open">
-        <span class="label label-info">1</span>
+        <span class="label label-info"><%= patient.prescriptions.count %></span>
       </td>
       <td>
-        <%= link_to "#{patient.first_name} #{patient.last_name} (#{patient.date_of_birth})", edit_patient_path(patient) %>
+        <%= link_to "#{patient.first_name} #{patient.last_name} (#{patient.date_of_birth})", patient %>
       </td>
       <td class="remove">
         <%= link_to "X", patient, method: :delete, :class=>'btn btn-xs btn-danger' %>

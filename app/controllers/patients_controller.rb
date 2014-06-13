@@ -10,6 +10,7 @@ class PatientsController < ApplicationController
   # GET /patients/1
   # GET /patients/1.json
   def show
+
   end
 
   # GET /patients/new
@@ -42,7 +43,7 @@ class PatientsController < ApplicationController
   def update
     respond_to do |format|
       if @patient.update(patient_params)
-        format.html { redirect_to @patient, notice: 'Patient was successfully updated.' }
+        format.html { redirect_to patients_url, notice: 'Patient was successfully updated.' }
         format.json { render :show, status: :ok, location: @patient }
       else
         format.html { render :edit }
@@ -65,6 +66,7 @@ class PatientsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_patient
       @patient = Patient.find(params[:id])
+      @prescriptions = @patient.prescriptions
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

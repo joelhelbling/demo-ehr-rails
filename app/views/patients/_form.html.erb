@@ -12,26 +12,34 @@
     <% end %>
     <div id="patient-add" class="template">
       <fieldset>
-        <legend>New Patient</legend>
+        <legend>Patient</legend>
 
         <p>
-          <label for="first_name">First Name</label>
-          <input class="form-control" id="first_name" name="patient[first_name]" placeholder="First Name">
+            <div class="field">
+              <%= f.label :first_name, "First Name" %><br>
+              <%= f.text_field :first_name, :class=>'form-control', :placeholder=>'First Name' %>
+            </div>
         </p>
 
         <p>
-          <label for="last_name">Last Name</label>
-          <input class="form-control" id="last_name" name="patient[last_name]" placeholder="Last Name">
+            <div class="field">
+              <%= f.label :last_name, "First Name" %><br>
+              <%= f.text_field :last_name, :class=>'form-control', :placeholder=>'Last Name' %>
+            </div>
         </p>
 
         <p>
-          <label for="date_of_birth">Date of Birth</label>
-          <input class="form-control" id="date_of_birth" name="patient[date_of_birth]" placeholder="e.g. 01/01/1900">
+            <div class="field">
+              <%= f.label :date_of_birth, "First Name" %><br>
+              <%= f.text_field :date_of_birth, :class=>'form-control', :placeholder=>"e.g. 01/01/1900" %>
+            </div>
         </p>
 
         <p>
-          <label for="state">State</label>
-          <select class="form-control" id="state" name="patient[state]">
+            <div class='field'>
+                <%= f.label :state, "State" %><br/>
+
+          <select class="form-control" id="state" name="patient[state]" value="<%= @patient.state %>">
             <option>Select&hellip;</option>
                         <option value="AL" selected="selected">Alabama</option> 
                         <option value="AK">Alaska</option> 

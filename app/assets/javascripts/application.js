@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 // Loads all Bootstrap javascripts
 //= require bootstrap
 //= require bootstrap-datepicker
@@ -22,8 +21,9 @@
 //= require config
 //= require_tree .
 
-window.setTimeout(function() {
-  $(".alert").fadeTo(500, 0).slideUp(500, function(){
-      $(this).remove();
-  });
-}, 5000);
+
+$(function() {
+	$('.alert').delay(500).fadeIn('normal', function() {
+		$(this).delay(1500).fadeOut();
+	});
+});

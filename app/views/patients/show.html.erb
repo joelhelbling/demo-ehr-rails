@@ -1,24 +1,49 @@
-<p id="notice"><%= notice %></p>
+<div id="patient-show" class="template">
+	<h2><%= "#{@patient.last_name}, #{@patient.first_name} (#{@patient.date_of_birth})" %></h2>
+	<hr>
 
-<p>
-  <strong>First name:</strong>
-  <%= @patient.first_name %>
-</p>
+	<h3>Prescriptions</h3>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @patient.last_name %>
-</p>
+	<% if @prescriptions.count < 1 %>
+	<h5>No drugs have been added for this patient yet.</h5>
+	<%  else  %>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Drug</th>
+				<th>Formulary Status</th>
+				<th>PA Status</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<% @prescriptions.each do |prescription| %>
+		<tr>
+			<td><%= prescription.drug_number %></td>
+			<td><%= prescription.formulary_status %></td>
+			<% request = (prescription.requests.first || Request.new) %>
 
-<p>
-  <strong>Date of birth:</strong>
-  <%= @patient.date_of_birth %>
-</p>
+			<td class="start">
+				<% if not request.sent then %>
+				<%= link_to "Start", new_patient_prescription_request_path(@patient, prescription), :class=>'btn btn-success' %>
+				<%  else  %>
+				<%= link_to "Sent", patient_prescription_request_path(@patient, prescription, request), :class=>'btn btn-success' %>
+				<% end %>
+			</td>
+			<td>
+				<%= link_to "Change Drug", edit_patient_prescription_path(@patient, prescription), :class=>"btn btn-primary #{request.sent ? 'disabled' : ''}"%>
+			</td>
+		</tr>
+		<% end %>
+	</table>
+	<% end %>
 
-<p>
-  <strong>State:</strong>
-  <%= @patient.state %>
-</p>
+	<p>
+		<%= link_to "Add Prescription", new_patient_prescription_path(@patient), :class=>'btn btn-success' %>
+	</p>
 
-<%= link_to 'Edit', edit_patient_path(@patient) %> |
-<%= link_to 'Back', patients_path %>
+
+	<%= link_to 'Edit', edit_patient_path(@patient), :class=>"btn btn-primary" %> |
+	<%= link_to 'Back', patients_path, :class=>'btn btn-default' %>
+
+
+</div>
