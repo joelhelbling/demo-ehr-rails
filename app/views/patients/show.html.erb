@@ -2,7 +2,7 @@
 	<h2><%= "#{@patient.last_name}, #{@patient.first_name} (#{@patient.date_of_birth})" %></h2>
 	<hr>
 
-	<h3>Prescriptions</h3>
+	<h3>Prescriptions <%= link_to "Add Prescription", new_patient_prescription_path(@patient), :class=>'btn btn-success' %></h3>
 
 	<% if @prescriptions.count < 1 %>
 	<h5>No drugs have been added for this patient yet.</h5>
@@ -18,32 +18,26 @@
 		</thead>
 		<% @prescriptions.each do |prescription| %>
 		<tr>
-			<td><%= prescription.drug_number %></td>
+			<td><%= prescription.drug_name %></td>
 			<td><%= prescription.formulary_status %></td>
-			<% request = (prescription.requests.first || Request.new) %>
+			<% request = (prescription.pa_requests.first) || PaRequest.new %>
 
 			<td class="start">
-				<% if not request.sent then %>
-				<%= link_to "Start", new_patient_prescription_request_path(@patient, prescription), :class=>'btn btn-success' %>
+				<% if (request == nil) || (request.cmm_token == nil) then %>
+				<%= link_to "Start", new_patient_prescription_pa_request_path(@patient, prescription), :class=>'btn btn-success' %>
 				<%  else  %>
-				<%= link_to "Sent", patient_prescription_request_path(@patient, prescription, request), :class=>'btn btn-success' %>
+				<%= link_to "Show on CMM", cmm_request_link_for(request), :class=>'btn btn-success' %>
 				<% end %>
 			</td>
 			<td>
-				<%= link_to "Change Drug", edit_patient_prescription_path(@patient, prescription), :class=>"btn btn-primary #{request.sent ? 'disabled' : ''}"%>
+				<%= link_to "Change Drug", edit_patient_prescription_path(@patient, prescription), :class=>"btn btn-primary #{request ? '' : 'disabled'}"%>
 			</td>
 		</tr>
 		<% end %>
 	</table>
 	<% end %>
 
-	<p>
-		<%= link_to "Add Prescription", new_patient_prescription_path(@patient), :class=>'btn btn-success' %>
-	</p>
-
-
-	<%= link_to 'Edit', edit_patient_path(@patient), :class=>"btn btn-primary" %> |
-	<%= link_to 'Back', patients_path, :class=>'btn btn-default' %>
+	<%= link_to 'Edit Patient', edit_patient_path(@patient), :class=>"btn btn-primary" %>
 
 
 </div>

@@ -12,51 +12,55 @@
 </div>
 <% end %>
 
-<fieldset>
-  <legend><%= "#{@patient.first_name} #{@patient.last_name} (#{@patient.date_of_birth})" %></legend>
+<div id="request-add" class="template">
 
-  <p>
+  <fieldset>
+    <legend>Prescription - <%= "#{@patient.first_name} #{@patient.last_name} (#{@patient.date_of_birth})" %></legend>
+
+    <p>
+      <div class="field">
+        <%= f.label :drug_number, "Drug" %><br>
+        <%= f.hidden_field :drug_number, :class=>'form-control' %>
+      </div>
+    </p>
+
+    <%= f.hidden_field :drug_name, :class=>'form-control' %>
+
+    <p>
+      <div class="field">
+        <%= f.label :quantity %><br>
+        <%= f.number_field :quantity, :class=>'form-control' %>
+      </div>
+    </p>
+
     <div class="field">
-      <%= f.label :drug_number, "Drug" %><br>
-      <%= f.text_field :drug_number, :class=>'form-control' %>
+      <%= f.label :frequency , "Directions"%><br>
+      <%= f.select :frequency, Prescription::FREQUENCIES, :class=>'form-control' %>
     </div>
-  </p>
 
-  <p>
     <div class="field">
-      <%= f.label :quantity %><br>
-      <%= f.number_field :quantity, :class=>'form-control' %>
+      <%= f.label :refills, "Refills" %><br>
+      <%= f.number_field :refills, :class=>'form-control', :in=>0..6 %>
     </div>
-  </p>
 
-  <div class="field">
-    <%= f.label :frequency , "Directions"%><br>
-    <%= f.select :frequency, Prescription::FREQUENCIES, :class=>'form-control' %>
-  </div>
+    <p>
+      <div class="field">
+        <%= f.label :dispense_as_written %><br>
+        <%= f.check_box :dispense_as_written, :class=>'form-control' %>
+      </div>
+    </p>
 
-  <div class="field">
-    <%= f.label :refills, "Refills" %><br>
-    <%= f.number_field :refills, :class=>'form-control', :in=>0..6 %>
-  </div>
+    <p>
+      <div class="actions">
+        <% if @patient.prescriptions.count == 0 %>
+        <%= link_to "Cancel", patients_path, :class=>'btn btn-default' %>
+        <% else %>
+        <%= link_to "Cancel", @patient, :class=>'btn btn-default' %>
+        <% end %>
+        <%= f.submit "Save", :class => 'btn btn-primary create', :onsubmit => 'getDrugName' %>
+      </div>
+    </p>
 
-  <p>
-    <div class="field">
-      <%= f.label :dispense_as_written %><br>
-      <%= f.check_box :dispense_as_written, :class=>'form-control' %>
-    </div>
-  </p>
-
-  <p>
-    <div class="actions">
-      <% if @patient.prescriptions.count == 0 %>
-      <%= link_to "Cancel", patients_path, :class=>'btn btn-default' %>
-      <% else %>
-      <%= link_to "Cancel", @patient, :class=>'btn btn-default' %>
-      <% end %>
-      <%= f.submit "Save", :class => 'btn btn-primary create' %>
-    </div>
-  </p>
-
-</fieldset>
-
+  </fieldset>
+</div>
 <% end %>

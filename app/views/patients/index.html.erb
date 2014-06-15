@@ -16,7 +16,7 @@
     <% @patients.each do |patient| %>
     <tr class="patients">
       <td class="open">
-        <span class="label label-info"><%= patient.prescriptions.count %></span>
+        <span class="label label-info"><%= patient.requests %></span>
       </td>
       <td>
         <%= link_to "#{patient.first_name} #{patient.last_name} (#{patient.date_of_birth})", patient %>

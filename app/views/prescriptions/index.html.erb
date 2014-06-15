@@ -15,7 +15,7 @@
   <tbody>
     <% @prescriptions.each do |prescription| %>
       <tr>
-        <td><%= link_to prescription.drug_number, [@patient, prescription] %></td>
+        <td><%= link_to prescription.drug_name, [@patient, prescription] %></td>
         <td><%= prescription.quantity %></td>
         <td><%= prescription.frequency %></td>
         <td><%= prescription.refills %></td>

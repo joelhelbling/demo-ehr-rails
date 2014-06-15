@@ -1,6 +1,6 @@
 class Prescription < ActiveRecord::Base
   belongs_to :patient
-  has_many :requests
+  has_many :pa_requests
 
   FREQUENCIES = [
   	['qD - EVERY DAY', 'qD'],

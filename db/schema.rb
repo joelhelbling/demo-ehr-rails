@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140613191608) do
+ActiveRecord::Schema.define(version: 20140615172332) do
+
+  create_table "pa_requests", force: true do |t|
+    t.integer  "prescription_id"
+    t.boolean  "urgent"
+    t.string   "form_id"
+    t.string   "state"
+    t.boolean  "sent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "cmm_token"
+    t.string   "cmm_link"
+  end
+
+  add_index "pa_requests", ["prescription_id"], name: "index_pa_requests_on_prescription_id"
 
   create_table "patients", force: true do |t|
     t.string   "first_name"
@@ -36,17 +50,5 @@ ActiveRecord::Schema.define(version: 20140613191608) do
   end
 
   add_index "prescriptions", ["patient_id"], name: "index_prescriptions_on_patient_id"
-
-  create_table "requests", force: true do |t|
-    t.integer  "prescription_id"
-    t.boolean  "urgent"
-    t.string   "form_id"
-    t.string   "state"
-    t.boolean  "sent"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "requests", ["prescription_id"], name: "index_requests_on_prescription_id"
 
 end

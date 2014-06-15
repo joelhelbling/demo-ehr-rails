@@ -16,12 +16,14 @@
               <%= link_to "Home", root_path %>
             </li>
             <li>
-              <%= link_to "e-Prescribing", patients_path %>
+              <%= link_to "Patients", patients_path %>
             </li>
-            <li><%= link_to "Prior Authorizations", requests_path %></li>
-            <li>
-              <%= link_to "Contact CoverMyMeds", help_path %>
-            </li>
+            <li><%= link_to "Prior Authorizations", pa_requests_path %></li>
+          </ul>
+          <ul class='nav navbar-nav navbar-right'>
+              <li>
+                <%= link_to "Contact CoverMyMeds", help_path %>
+              </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
