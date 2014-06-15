@@ -1,0 +1,64 @@
+<%= form_for [@patient, @prescription, @request] do |f| %>
+
+<% if @request.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@request.errors.count, "error") %> prohibited this prescription from being saved:</h2>
+
+  <ul>
+    <% @request.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div id="request-add" class="template">
+  <fieldset>
+  	<legend>New PA Request</legend>
+
+    <p>
+      <%= f.label :patient, "Patient" %>
+      <%= text_field_tag :patient, @patient.name, :class=>'form-control', :disabled => true, :id=>'patient' %>
+      <%= hidden_field_tag :patient_first_name, @patient.first_name %>
+      <%= hidden_field_tag :patient_last_name, @patient.last_name %>
+    </p>
+
+  	<p>
+      <%= f.label :date_of_birth, "Date of Birth" %>
+      <%= text_field_tag :date_of_birth, @patient.date_of_birth, :class=>'form-control', :disabled => true, :id=>'date_of_birth' %>
+  	</p>
+
+    <%= link_to "Edit Patient", edit_patient_path(@patient), :class=>'btn btn-info' %>
+
+    <p>
+      <%= f.label :state, "State"%><br/>
+      <%= f.subregion_select :state, 'US', {:priority => [@patient.state]}, :class=>'form-control', :value=>"#{@patient.state}"%>
+    </p>
+
+  	<p>
+      <div class="field">
+        <%= f.label :drug_name, "Drug" %><br>
+        <%= text_field_tag :drug_name, @prescription.drug_name, :class=>'form-control' %>
+        <%= hidden_field_tag :drug_number, @prescription.drug_number, :class=>'form-control' %>
+      </div>
+  	</p>
+
+    <p>
+      <div class="field">
+        <%= f.label :urgent, "Urgent" %><br/>
+        <%= f.check_box :urgent, :class=>'form-control' %>
+
+  	<p>
+      <%= f.label :form_id, "Form" %>
+      <%= f.text_field :form_id, :class=>'form-control', :name => 'request[form_id]' %>
+  	</p>
+
+    <p>
+      <%= link_to "Cancel", @patient, :class=>'btn btn-default'%>
+      <%= f.submit "Create", :class=>'btn btn-primary', :id=>'create'%>
+    </p>
+
+  </fieldset>
+</div>
+
+<% end %>
