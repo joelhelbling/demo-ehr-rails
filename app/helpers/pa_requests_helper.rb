@@ -9,7 +9,7 @@ module PaRequestsHelper
 		if request.cmm_link
 			request.cmm_link+"?token_id=#{params[:token_id]}"
 		else
-			"http://api.covermymeds.com/requests?v=1&#{params.to_query}"
+			"https://api.covermymeds.com/requests/#{request.cmm_id}?v=1&#{params.to_query}"
 		end
 	end
 end

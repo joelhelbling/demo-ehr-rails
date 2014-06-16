@@ -3,14 +3,23 @@ $(function () {
     apiId: '1vd9o4427lyi0ccb2uem',
     version: 1,
   };
-  $('#pa_request_form_id').formSearch(options);
+
+
+
+  var form_options = {
+    apiId: '1vd9o4427lyi0ccb2uem',
+    version: 1,
+    drugId: eval($('#drug_number').val()) || eval(''),
+    state: eval("'"+$('#pa_request_state').val()+"'") || eval('')
+  };
+
+  $('#pa_request_form_id').formSearch(form_options);
 
   var dashboard_options = {
     apiId: '1vd9o4427lyi0ccb2uem',
     version: 1,
     tokenIds: eval($('meta[name=tokens]').attr('content')) || eval([ ])
   };
-  console.log(dashboard_options.tokenIds);
   $('#dashboard').dashboard(dashboard_options);
 
 
@@ -23,6 +32,8 @@ $(function () {
       data: {
         request: {
           state: $('#pa_request_state').val(),
+          urgent: $('#pa_request_urgent').val(),
+          form_id: $('#pa_request_form_id').val(),
           patient: {
             first_name: $('#patient_first_name').val(),
             last_name: $('#patient_last_name').val(),
@@ -31,6 +42,10 @@ $(function () {
           prescription: {
             drug_id: $('#drug_number').val(),
             name: $('#drug_name').val(),
+            refills: $('#prescription_refills').val(),
+            quantity: $('#prescription_quantity').val(),
+            frequency: $('#prescription_frequency').val(),
+            dispense_as_written: $('#prescription_dispense_as_written').val()
           }
         }
       },
@@ -39,12 +54,13 @@ $(function () {
         // use the first token as the one we save in the form
         var token = request.tokens[0].id;
         var link = request.html_url;
+        var id = request.id;
         if (status === "success") {
-          debugger;
           $form.append($('<input type="hidden" name="pa_request[sent]" />').val(0));
           $form.append($('<input type="checkbox" checked="checked" id="pa_request_sent" name="pa_request[sent]" />').val(1));
           $form.append($('<input type="hidden" name="pa_request[cmm_token]" />').val(token));
           $form.append($('<input type="hidden" name="pa_request[cmm_link]" />').val(link));
+          $form.append($('<input type="hidden" name="pa_request[cmm_id]" />').val(id));
           $form.get(0).submit();
         }
       },
@@ -55,7 +71,6 @@ $(function () {
       }
     };
 
-     console.log(create_options);
 
      // call out to the CMM service
      $.ajax({

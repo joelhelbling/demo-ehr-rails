@@ -23,6 +23,12 @@
       <%= hidden_field_tag :patient_last_name, @patient.last_name %>
     </p>
 
+    <%= hidden_field_tag :prescription_refills, @prescription.refills %>
+    <%= hidden_field_tag :prescription_frequency, @prescription.frequency %>
+    <%= hidden_field_tag :prescription_dispense_as_written, @prescription.dispense_as_written %>
+    <%= hidden_field_tag :prescription_quantity, @prescription.quantity %>
+    
+
   	<p>
       <%= f.label :date_of_birth, "Date of Birth" %>
       <%= text_field_tag :date_of_birth, @patient.date_of_birth, :class=>'form-control', :disabled => true, :id=>'date_of_birth' %>
@@ -50,7 +56,7 @@
 
   	<p>
       <%= f.label :form_id, "Form" %>
-      <%= f.text_field :form_id, :class=>'form-control', :name => 'request[form_id]' %>
+      <%= f.text_field :form_id, :class=>'form-control' %>
   	</p>
 
     <p>

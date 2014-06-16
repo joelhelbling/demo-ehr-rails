@@ -52,7 +52,7 @@ class PaRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pa_request_params
-      params.require(:pa_request).permit(:prescription_id, :form_id, :urgent, :state, :sent, :cmm_token, :cmm_link)
+      params.require(:pa_request).permit(:prescription_id, :form_id, :urgent, :state, :sent, :cmm_token, :cmm_link, :cmm_id)
     end
 
 end

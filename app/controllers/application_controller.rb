@@ -8,4 +8,5 @@ class ApplicationController < ActionController::Base
   def request_tokens
   	PaRequest.select('cmm_token').inject([]) {|acc,n| acc.push("'#{n.cmm_token}'")}
   end
+  
 end
