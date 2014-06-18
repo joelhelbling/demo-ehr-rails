@@ -24,11 +24,11 @@ RSpec.describe PatientsController, :type => :controller do
   # Patient. As you add validations to Patient, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {:first_name=>'Mark', :last_name=>'Harris', :date_of_birth=>'10/11/1971', :state=>'OH'}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {:first_name=>'', :last_name=>'', :date_of_birth=>'October 11, 1971', :state=>'OH'}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -83,7 +83,7 @@ RSpec.describe PatientsController, :type => :controller do
 
       it "redirects to the created patient" do
         post :create, {:patient => valid_attributes}, valid_session
-        expect(response).to redirect_to(Patient.last)
+        expect(response).to redirect_to(:action => :index)
       end
     end
 
@@ -103,14 +103,14 @@ RSpec.describe PatientsController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {:first_name => 'Jack', :last_name=>'Johnson', :date_of_birth=>'1/1/2013', :state=>'CA'}
       }
 
       it "updates the requested patient" do
         patient = Patient.create! valid_attributes
         put :update, {:id => patient.to_param, :patient => new_attributes}, valid_session
         patient.reload
-        skip("Add assertions for updated state")
+        expect(patient.first_name).to eql("Jack")
       end
 
       it "assigns the requested patient as @patient" do
@@ -122,7 +122,7 @@ RSpec.describe PatientsController, :type => :controller do
       it "redirects to the patient" do
         patient = Patient.create! valid_attributes
         put :update, {:id => patient.to_param, :patient => valid_attributes}, valid_session
-        expect(response).to redirect_to(patient)
+        expect(response).to redirect_to(:action => :index)
       end
     end
 

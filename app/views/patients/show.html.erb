@@ -24,9 +24,9 @@
 
 			<td class="start">
 				<% if (request == nil) || (request.cmm_token == nil) then %>
-				<%= link_to "Start", new_patient_prescription_pa_request_path(@patient, prescription), :class=>'btn btn-success' %>
+				<%= link_to "Start", new_patient_prescription_pa_request_path(@patient, prescription), :class=>'btn btn-success', :id => 'start_pa_request' %>
 				<%  else  %>
-				<%= link_to "Show on CMM", cmm_request_link_for(request), :class=>'btn btn-success' %>
+				<%= link_to "Show on CMM", patient_prescription_pa_request_path(@patient, prescription, request), :class=>'btn btn-success' %>
 				<% end %>
 			</td>
 			<td>
@@ -38,6 +38,5 @@
 	<% end %>
 
 	<%= link_to 'Edit Patient', edit_patient_path(@patient), :class=>"btn btn-primary" %>
-
 
 </div>

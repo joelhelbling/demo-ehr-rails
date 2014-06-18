@@ -10,7 +10,12 @@ class PatientsController < ApplicationController
   # GET /patients/1
   # GET /patients/1.json
   def show
-
+    if @patient.prescriptions.count == 0
+      respond_to do |format|
+        format.html {redirect_to new_patient_prescription_path(@patient)}
+        format.json { render :show, status: :ok, location: @patient }
+      end
+    end
   end
 
   # GET /patients/new

@@ -10,13 +10,20 @@ class PaRequestsController < ApplicationController
   # GET /patients/1/prescriptions/1/requests/1
   # GET /patients/1/prescriptions/1/requests/1.json
   def show
+    if @pa_request.cmm_link
+      respond_to do |format|
+        format.html { redirect_to @pa_request.cmm_link+"?token_id=#{@pa_request.cmm_token}" }
+        format.json { render :show, status: :ok, location: @pa_request}
+      end
+    end
   end
 
   # GET /patients/1/prescriptions/1/requests/new
   def new
-    @patient = Patient.find(params[:patient_id])
+    @patient = Patient.find(params[:patient_id]) 
     @prescription = @patient.prescriptions.find(params[:prescription_id])
-    @request = @prescription.pa_requests.build
+    @request = @prescription.pa_requests.build 
+
   end
 
   # GET /patients/1/prescriptions/1/requests/1/edit

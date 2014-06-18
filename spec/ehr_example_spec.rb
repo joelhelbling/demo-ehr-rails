@@ -29,29 +29,35 @@ describe 'eHR Example App' do
       expect(page).to have_content('Your Prior Auth Dashboard')
     end
 
-    it 'should navigate to the new prior auth view', :wip => true do
+    it 'should navigate to the new prior auth view', js: true do
       click_link('Patients')
+      expect(page).to have_content('Patients')
 
-      # Find the first patient and click on them
-      within '.table tr.patients:nth-child(2)' do
-        find('a', match: :first).click
+      # Amber has a prescription
+      click_link('Amber Smith (10/01/1971)')
+
+      expect(page).to have_content('Prescriptions')
+
+      find('#start_pa_request', match: :first).click
+        expect(page).to have_content('New PA Request')
       end
 
-      click_link('Start')
-      expect(page).to have_content('New PA Request')
-    end
-
     it 'should navigate to the contact cmm view' do
-      click_link('Prior Authorization')
+      click_link('Resources')
       click_link('Contact CoverMyMeds')
       expect(page).to have_content('For assistance using CoverMyMeds')
     end
 
+    it 'should navigate to the api documentation' do
+      click_link('Resources')
+      click_link('API Documentation')
+      expect(page).to have_title('API Reference')
+    end
   end
 
   # Test everything a user can do on the patients index
   describe 'patients index workflow' do
-    fixtures :patients
+    fixtures :patients, :prescriptions
 
     before(:each) do
       visit '/patients'
@@ -71,11 +77,9 @@ describe 'eHR Example App' do
       expect(page).to have_css('.table tr.patients', count: 10)
     end
 
-    it 'should navigate to new prescription form if patient is clicked with no prescriptions assigned' do
-      within '.table tr.patients:nth-child(2)' do
-        find('a', match: :first).click
-      end
-      expect(page).to have_content('New Prescription')
+    it 'should navigate to new prescription form if patient is clicked with no prescriptions assigned', :failed => true do
+      click_link('Mike Miller (10/01/1971)')
+      expect(page).to have_content('Prescription -')
     end
 
     it 'should delete a patient if remove button is clicked', :wip => true do
@@ -89,7 +93,7 @@ describe 'eHR Example App' do
   end
 
   describe 'patients add workflow' do
-    fixtures :patients
+    fixtures :patients, :prescriptions
 
     it 'should create a patient', :wip => true do
       visit '/patients/new'
@@ -106,81 +110,60 @@ describe 'eHR Example App' do
       expect(page).to have_content('Patient created successfully.')
     end
 
-    it 'should add a drug to a patient' do
+    it 'should add a drug to a patient', js: true do
       visit '/patients'
 
       # Find the first patient and click on them
-      within '.table tr.patients:nth-child(2)' do
-        find('a', match: :first).click
-      end
-
+      click_link('Amber Smith (10/01/1971')
+      click_link('Add Prescription')
+      
       # Find a drug
-      find('#s2_drug_number').click
+      find('#s2id_prescription_drug_number').click
       find('.select2-input').set('Nexium')
       expect(page).to have_selector('.select2-result-selectable')
       within '.select2-results' do
         find('li:first-child').click
       end
-
-      # Find a form
-      # find('#s2id_form').click
-      # find('.select2-input').set('bcbs')
-      # expect(page).to have_selector('.select2-result-selectable')
-      # within '.select2-results' do
-      #   find('li:first-child').click
-      # end
 
       click_on('Save')
 
       # Back on the patient page
       expect(page).to have_selector('#patient-show')
 
-      check('request', match: :first)
+      # start the prior auth
+#      click_on('Start')
 
-      click_on('Next')
+      # check('request', match: :first)
 
-      # Should be on pharmacy list page
-      expect(page).to have_selector('#pharmacies-list')
-      click_on('Finish')
+      # click_on('Next')
 
-      expect(page).to have_content('Lets pretend that this is your EHR...')
+      # # Should be on pharmacy list page
+      # expect(page).to have_selector('#pharmacies-list')
+      # click_on('Finish')
+
+      # expect(page).to have_content('Lets pretend that this is your EHR...')
     end
 
-    it 'should navigate patient show if patient name is clicked and patient has prescription assigned', :wip => true do
-      visit '/patients'
+    it 'should navigate patient show if patient name is clicked and patient has prescription assigned', :wip => true, js: true do
+      visit '/'
+      click_link('Patients')
+      click_link("Amber Smith (10/01/1971)")
 
-      within '.table tr.patients:nth-child(2)' do
-        find('a', match: :first).click
-      end
-      
-      expect(page).to have_content("Prescriptions")
       click_link('Add Prescription')
 
       # Find a drug
-      find('#s2_drug_number').click
+      find('#s2id_prescription_drug_number').click
       find('.select2-input').set('Nexium')
       expect(page).to have_selector('.select2-result-selectable')
       within '.select2-results' do
         find('li:first-child').click
       end
 
-      # Find a form
-      # find('#s2id_form').click
-      # find('.select2-input').set('bcbs')
-      # expect(page).to have_selector('.select2-result-selectable')
-      # within '.select2-results' do
-      #   find('li:first-child').click
-      # end
-
       click_on('Save')
 
       visit '/patients'
-
-      within '.table tr.patients:nth-child(2)' do
-        find('a', match: :first).click
-      end
-
-      expect(page).to have_content('Prescriptions')
+      click_link("Amber Smith (10/01/1971)")
+      expect(page).to have_content('Add Prescription')
     end
 
   end
@@ -192,7 +175,8 @@ describe 'eHR Example App' do
 
   it 'should display a help view', :wip => true do
     visit('/')
-    find_link('Contact CoverMyMeds').click
+    click_link('Resources')
+    click_link('Contact CoverMyMeds')
     expect(page).to have_content('For assistance using CoverMyMeds')
   end
 

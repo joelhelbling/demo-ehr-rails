@@ -20,15 +20,35 @@ require 'rails_helper'
 
 RSpec.describe PrescriptionsController, :type => :controller do
 
+
   # This should return the minimal set of attributes required to create a valid
   # Prescription. As you add validations to Prescription, be sure to
   # adjust the attributes here as well.
+  let(:patient) { Patient.create!({:first_name => 'Mark', :last_name=>'Harris', :date_of_birth=>'10/11/1971', :state=>'OH' }) }
+
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      :drug_number=>'98033',
+      :drug_name =>'Nexium',
+      :quantity => '10',
+      :frequency => 'qD',
+      :refills => '3',
+      :dispense_as_written => true,
+      :formulary_status => 'On Formulary',
+      :patient_id => patient.id
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      :drug_number=>'ABCDEF',
+      :drug_name =>'12345',
+      :quantity => '100000',
+      :frequency => 'xf',
+      :refills => '-1',
+      :dispense_as_written => true,
+      :formulary_status => 'Ouch!'
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -37,9 +57,10 @@ RSpec.describe PrescriptionsController, :type => :controller do
   let(:valid_session) { {} }
 
   describe "GET index" do
-    it "assigns all prescriptions as @prescriptions" do
+    it "assigns all prescriptions as @prescriptions", :wip => true do
+#      @patient = Patient.create! :first_name=>'Mark', :last_name=>'Harris', :date_of_birth=>'10/11/1971', :state=>'OH'
       prescription = Prescription.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {:patient_id=>patient.id, :patient_id => patient.id }, valid_session
       expect(assigns(:prescriptions)).to eq([prescription])
     end
   end
@@ -47,14 +68,14 @@ RSpec.describe PrescriptionsController, :type => :controller do
   describe "GET show" do
     it "assigns the requested prescription as @prescription" do
       prescription = Prescription.create! valid_attributes
-      get :show, {:id => prescription.to_param}, valid_session
+      get :show, {:id => prescription.to_param, :patient_id => patient.id }, valid_session
       expect(assigns(:prescription)).to eq(prescription)
     end
   end
 
   describe "GET new" do
     it "assigns a new prescription as @prescription" do
-      get :new, {}, valid_session
+      get :new, {:patient_id=>patient.id}, valid_session
       expect(assigns(:prescription)).to be_a_new(Prescription)
     end
   end
@@ -62,7 +83,7 @@ RSpec.describe PrescriptionsController, :type => :controller do
   describe "GET edit" do
     it "assigns the requested prescription as @prescription" do
       prescription = Prescription.create! valid_attributes
-      get :edit, {:id => prescription.to_param}, valid_session
+      get :edit, {:id => prescription.to_param, :patient_id=> patient.id}, valid_session
       expect(assigns(:prescription)).to eq(prescription)
     end
   end
@@ -71,30 +92,30 @@ RSpec.describe PrescriptionsController, :type => :controller do
     describe "with valid params" do
       it "creates a new Prescription" do
         expect {
-          post :create, {:prescription => valid_attributes}, valid_session
+          post :create, {:prescription => valid_attributes, :patient_id => patient.id }, valid_session
         }.to change(Prescription, :count).by(1)
       end
 
       it "assigns a newly created prescription as @prescription" do
-        post :create, {:prescription => valid_attributes}, valid_session
+        post :create, {:prescription => valid_attributes, :patient_id => patient.id }, valid_session
         expect(assigns(:prescription)).to be_a(Prescription)
         expect(assigns(:prescription)).to be_persisted
       end
 
       it "redirects to the created prescription" do
-        post :create, {:prescription => valid_attributes}, valid_session
+        post :create, {:prescription => valid_attributes, :patient_id => patient.id }, valid_session
         expect(response).to redirect_to(Prescription.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved prescription as @prescription" do
-        post :create, {:prescription => invalid_attributes}, valid_session
+        post :create, {:prescription => invalid_attributes, :patient_id => patient.id }, valid_session
         expect(assigns(:prescription)).to be_a_new(Prescription)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:prescription => invalid_attributes}, valid_session
+        post :create, {:prescription => invalid_attributes, :patient_id => patient.id }, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -108,20 +129,20 @@ RSpec.describe PrescriptionsController, :type => :controller do
 
       it "updates the requested prescription" do
         prescription = Prescription.create! valid_attributes
-        put :update, {:id => prescription.to_param, :prescription => new_attributes}, valid_session
+        put :update, {:id => prescription.to_param, :prescription => new_attributes, :patient_id => patient.id }, valid_session
         prescription.reload
         skip("Add assertions for updated state")
       end
 
       it "assigns the requested prescription as @prescription" do
         prescription = Prescription.create! valid_attributes
-        put :update, {:id => prescription.to_param, :prescription => valid_attributes}, valid_session
+        put :update, {:id => prescription.to_param, :prescription => valid_attributes, :patient_id => patient.id }, valid_session
         expect(assigns(:prescription)).to eq(prescription)
       end
 
       it "redirects to the prescription" do
         prescription = Prescription.create! valid_attributes
-        put :update, {:id => prescription.to_param, :prescription => valid_attributes}, valid_session
+        put :update, {:id => prescription.to_param, :prescription => valid_attributes, :patient_id => patient.id }, valid_session
         expect(response).to redirect_to(prescription)
       end
     end
@@ -129,7 +150,7 @@ RSpec.describe PrescriptionsController, :type => :controller do
     describe "with invalid params" do
       it "assigns the prescription as @prescription" do
         prescription = Prescription.create! valid_attributes
-        put :update, {:id => prescription.to_param, :prescription => invalid_attributes}, valid_session
+        put :update, {:id => prescription.to_param, :prescription => invalid_attributes, :patient_id => patient.id }, valid_session
         expect(assigns(:prescription)).to eq(prescription)
       end
 
@@ -145,13 +166,13 @@ RSpec.describe PrescriptionsController, :type => :controller do
     it "destroys the requested prescription" do
       prescription = Prescription.create! valid_attributes
       expect {
-        delete :destroy, {:id => prescription.to_param}, valid_session
+        delete :destroy, {:id => prescription.to_param, :patient_id=>patient.id}, valid_session
       }.to change(Prescription, :count).by(-1)
     end
 
     it "redirects to the prescriptions list" do
       prescription = Prescription.create! valid_attributes
-      delete :destroy, {:id => prescription.to_param}, valid_session
+      delete :destroy, {:id => prescription.to_param, :patient_id=>patient.id}, valid_session
       expect(response).to redirect_to(prescriptions_url)
     end
   end

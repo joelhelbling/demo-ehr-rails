@@ -8,3 +8,33 @@ prescriptions_Amber:
     patient: patient_Amber
     drug_name: 'NexIUM 2.5MG packets'
     formulary_status: 'Off Formulary'
+
+prescriptions_Amber4:
+    drug_number: 175285
+    quantity: 4
+    refills: 5
+    frequency: 'qD'
+    dispense_as_written: true
+    patient: patient_Amber4
+    drug_name: 'NexIUM 2.5MG packets'
+    formulary_status: 'Off Formulary'
+
+prescriptions_Nathan:
+    drug_number: 175285
+    quantity: 4
+    refills: 5
+    frequency: 'qD'
+    dispense_as_written: true
+    patient: patient_Nathan
+    drug_name: 'NexIUM 2.5MG packets'
+    formulary_status: 'Off Formulary'
+
+prescriptions_Becky:
+    drug_number: 175285
+    quantity: 4
+    refills: 5
+    frequency: 'qD'
+    dispense_as_written: true
+    patient: patient_Becky
+    drug_name: 'NexIUM 2.5MG packets'
+    formulary_status: 'Off Formulary'
