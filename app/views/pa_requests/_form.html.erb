@@ -44,7 +44,7 @@
   	<p>
       <div class="field">
         <%= f.label :drug_name, "Drug" %><br>
-        <%= text_field_tag :drug_name, @prescription.drug_name, :class=>'form-control' %>
+        <%= text_field_tag :drug_name, @prescription.drug_name, :class=>'form-control', :disabled => true %>
         <%= hidden_field_tag :drug_number, @prescription.drug_number, :class=>'form-control' %>
       </div>
   	</p>

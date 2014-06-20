@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "Prescriptions", :type => :request do
-  describe "GET /prescriptions" do
-    it "works! (now write some real specs)" do
-      get prescriptions_path
+	fixtures :all
+  describe "GET /patient/1/prescriptions" do
+    it "gets list of prescriptions for patients" do
+      get patient_prescriptions_path(Patient.first)
       expect(response.status).to be(200)
     end
   end
+
 end

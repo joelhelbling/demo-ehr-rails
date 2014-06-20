@@ -1,5 +1,5 @@
 <div id="patient-show" class="template">
-	<h2><%= "#{@patient.last_name}, #{@patient.first_name} (#{@patient.date_of_birth})" %></h2>
+	<h2><%= "#{@patient.last_name}, #{@patient.first_name} (#{@patient.date_of_birth}) - #{@patient.state}" %></h2>
 	<hr>
 
 	<h3>Prescriptions <%= link_to "Add Prescription", new_patient_prescription_path(@patient), :class=>'btn btn-success' %></h3>

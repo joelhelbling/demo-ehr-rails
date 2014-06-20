@@ -5,8 +5,8 @@ RSpec.describe "patients/new", :type => :view do
     assign(:patient, Patient.new(
       :first_name => "MyString",
       :last_name => "MyString",
-      :date_of_birth => "MyString",
-      :state => "MyString"
+      :date_of_birth => "10/11/1971",
+      :state => "OH"
     ))
   end
 
@@ -21,7 +21,7 @@ RSpec.describe "patients/new", :type => :view do
 
       assert_select "input#patient_date_of_birth[name=?]", "patient[date_of_birth]"
 
-      assert_select "input#patient_state[name=?]", "patient[state]"
+      assert_select "select#patient_state[name=?]", "patient[state]"
     end
   end
 end

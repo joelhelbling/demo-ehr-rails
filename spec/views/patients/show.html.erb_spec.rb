@@ -5,16 +5,27 @@ RSpec.describe "patients/show", :type => :view do
     @patient = assign(:patient, Patient.create!(
       :first_name => "First Name",
       :last_name => "Last Name",
-      :date_of_birth => "Date Of Birth",
-      :state => "State"
+      :date_of_birth => "10/11/1971",
+      :state => "OH"
     ))
+    @prescription = assign(:prescription, Prescription.create!(
+      :drug_number => '12345',
+      :drug_name => 'Nexium',
+      :quantity => '10',
+      :frequency => 'qD',
+      :refills => '3',
+      :dispense_as_written => true,
+      :formulary_status => 'On Formulary',
+    ))
+    @patient.prescriptions.push(@prescription)
+    @prescriptions = @patient.prescriptions
   end
 
   it "renders attributes in <p>" do
     render
     expect(rendered).to match(/First Name/)
     expect(rendered).to match(/Last Name/)
-    expect(rendered).to match(/Date Of Birth/)
-    expect(rendered).to match(/State/)
+    expect(rendered).to match(/10\/11\/1971/)
+    expect(rendered).to match(/OH/)
   end
 end

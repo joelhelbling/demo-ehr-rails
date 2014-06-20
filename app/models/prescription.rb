@@ -2,6 +2,8 @@ class Prescription < ActiveRecord::Base
   belongs_to :patient
   has_many :pa_requests
 
+  validates :drug_number, :format=> {:with => /[0-9]+/ , :message => 'Drug Number is invalid'}
+
   FREQUENCIES = [
   	['qD - EVERY DAY', 'qD'],
   	['BID - TWICE A DAY', 'BID'],
