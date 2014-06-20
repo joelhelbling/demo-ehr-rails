@@ -6,12 +6,14 @@ $(function () {
 
 
   var form_options = {
-    apiId: '1vd9o4427lyi0ccb2uem',
+    apiId: options.apiId,
     version: 1,
-    drugId: eval($('#drug_number').val()) || eval(''),
-    state: eval("'"+$('#pa_request_state').val()+"'") || eval('')
+    drugId: eval("$('#drug_number').val()"),
+    state: eval("$('#pa_request_state').val()") 
   };
+  
   $('#pa_request_form_id').formSearch(form_options);
+
 
   var dashboard_options = {
     apiId: '1vd9o4427lyi0ccb2uem',

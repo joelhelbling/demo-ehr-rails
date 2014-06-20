@@ -30,7 +30,7 @@
 				<% end %>
 			</td>
 			<td>
-				<%= link_to "Change Drug", edit_patient_prescription_path(@patient, prescription), :class=>"btn btn-primary #{request ? '' : 'disabled'}"%>
+				<%= link_to "Change Drug", edit_patient_prescription_path(@patient, prescription), :class=>"btn btn-primary #{(request.sent) ? 'disabled' : ''}"%>
 			</td>
 		</tr>
 		<% end %>
