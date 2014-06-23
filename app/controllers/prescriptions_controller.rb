@@ -5,7 +5,7 @@ class PrescriptionsController < ApplicationController
   # GET /prescriptions.json
   def index
     @patient = Patient.find(params[:patient_id])
-    @prescriptions = Prescription.where(:patient_id => params[:patient_id])
+    @prescriptions = Prescription.where(:patient_id => params[:patient_id]).where(:active => true)
   end
 
   # GET /prescriptions/1
@@ -18,6 +18,8 @@ class PrescriptionsController < ApplicationController
     @patient = Patient.find(params[:patient_id])
     @prescription = @patient.prescriptions.build
     @prescription.formulary_status = "Off formulary"
+    @prescription.date_prescribed = Date.current
+    @prescription.active = true
   end
 
   # GET /prescriptions/1/edit
@@ -30,6 +32,8 @@ class PrescriptionsController < ApplicationController
     @patient = Patient.find(params[:patient_id])
     @prescription = @patient.prescriptions.build(prescription_params)
     @prescription.formulary_status = "Off formulary"
+    @prescription.date_prescribed = Date.current
+    @prescription.active = true
 
     respond_to do |format|
       if @prescription.save
@@ -59,9 +63,11 @@ class PrescriptionsController < ApplicationController
   # DELETE /prescriptions/1
   # DELETE /prescriptions/1.json
   def destroy
-    @prescription.destroy
+    #@prescription.destroy
+    # we never delete prescriptions.  they just get archived
+    @prescription.active = false
     respond_to do |format|
-      format.html { redirect_to patient_prescriptions_url(@patient), notice: 'Prescription was successfully destroyed.' }
+      format.html { redirect_to @patient, notice: 'Prescription was archived.' }
       format.json { head :no_content }
     end
   end

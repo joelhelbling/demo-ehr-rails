@@ -12,8 +12,8 @@
 			<tr>
 				<th>Drug</th>
 				<th>Formulary Status</th>
-				<th>PA Status</th>
-				<th>&nbsp;</th>
+				<th colspan="2">PA Status</th>
+				<th colspan="2">Prescribed On</th>
 			</tr>
 		</thead>
 		<% @prescriptions.each do |prescription| %>
@@ -22,6 +22,8 @@
 			<td><%= prescription.formulary_status %></td>
 			<% request = (prescription.pa_requests.first) || PaRequest.new %>
 
+			<td><%= request.cmm_workflow_status || "None" %></td>
+
 			<td class="start">
 				<% if (request == nil) || (request.cmm_token == nil) then %>
 				<%= link_to "Start", new_patient_prescription_pa_request_path(@patient, prescription), :class=>'btn btn-success', :id => 'start_pa_request' %>
@@ -29,8 +31,10 @@
 				<%= link_to "Show on CMM", patient_prescription_pa_request_path(@patient, prescription, request), :class=>'btn btn-success' %>
 				<% end %>
 			</td>
+			<td><%= prescription.date_prescribed.strftime("%B %d at %I:%M %p") %></td>
 			<td>
 				<%= link_to "Change Drug", edit_patient_prescription_path(@patient, prescription), :class=>"btn btn-primary #{(request.sent) ? 'disabled' : ''}"%>
+		        <%= link_to "X", [@patient, prescription], method: :delete, :class=>'btn btn-xs btn-danger' %>
 			</td>
 		</tr>
 		<% end %>

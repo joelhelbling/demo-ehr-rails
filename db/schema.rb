@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140616150504) do
+ActiveRecord::Schema.define(version: 20140623200521) do
 
   create_table "pa_requests", force: true do |t|
     t.integer  "prescription_id"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20140616150504) do
     t.string   "cmm_token"
     t.string   "cmm_link"
     t.string   "cmm_id"
+    t.string   "cmm_workflow_status"
   end
 
   add_index "pa_requests", ["prescription_id"], name: "index_pa_requests_on_prescription_id"
@@ -48,6 +49,8 @@ ActiveRecord::Schema.define(version: 20140616150504) do
     t.datetime "updated_at"
     t.string   "drug_name"
     t.string   "formulary_status"
+    t.datetime "date_prescribed"
+    t.boolean  "active"
   end
 
   add_index "prescriptions", ["patient_id"], name: "index_prescriptions_on_patient_id"

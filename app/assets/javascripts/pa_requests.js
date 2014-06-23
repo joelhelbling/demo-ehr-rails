@@ -34,10 +34,20 @@ $(function () {
           state: $('#pa_request_state').val(),
           urgent: $('#pa_request_urgent').val(),
           form_id: $('#pa_request_form_id').val(),
+          memo: "this is only a test for the toy EHR",
           patient: {
             first_name: $('#patient_first_name').val(),
             last_name: $('#patient_last_name').val(),
-            date_of_birth: $('#date_of_birth').val()
+            date_of_birth: $('#date_of_birth').val(),
+            member_id: "9876543",
+            phone_number: "555-555-5555",
+            address: {
+              street_1: "430 N. High St.",
+              street_2: "",
+              city: "Columbus",
+              state: "OH",
+              zip: "43210"
+            }
           },
           prescription: {
             drug_id: $('#drug_number').val(),
@@ -46,21 +56,39 @@ $(function () {
             quantity: $('#prescription_quantity').val(),
             frequency: $('#prescription_frequency').val(),
             dispense_as_written: $('#prescription_dispense_as_written').val()
+          },
+          prescriber: {
+            npi: "123456789",
+            first_name: "Emil",
+            last_name: "Brown",
+            fax_number: "555-555-5555",
+            phone_number: "555-555-5555",
+            clinic_name: "Minute Clinic",
+            address: {
+              street_1: "130 E. Chestnut St.",
+              street_2: "Suite 100",
+              city: "Columbus",
+              state: "OH",
+              zip: "43015"
+            }
           }
         }
       },
       success: function(request, status, xhr) {
         // this function is called after the createRequest call below
         // use the first token as the one we save in the form
+ 
         var token = request.tokens[0].id;
         var link = request.html_url;
         var id = request.id;
+        var workflow_status = request.workflow_status;
         if (status === "success") {
           $form.append($('<input type="hidden" name="pa_request[sent]" />').val(0));
           $form.append($('<input type="checkbox" checked="checked" id="pa_request_sent" name="pa_request[sent]" />').val(1));
           $form.append($('<input type="hidden" name="pa_request[cmm_token]" />').val(token));
           $form.append($('<input type="hidden" name="pa_request[cmm_link]" />').val(link));
           $form.append($('<input type="hidden" name="pa_request[cmm_id]" />').val(id));
+          $form.append($('<input type="hidden" name="pa_request[cmm_workflow_status]" />').val(workflow_status));
           $form.get(0).submit();
         }
       },
