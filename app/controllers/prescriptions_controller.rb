@@ -31,7 +31,7 @@ class PrescriptionsController < ApplicationController
   def create
     @patient = Patient.find(params[:patient_id])
     @prescription = @patient.prescriptions.build(prescription_params)
-    @prescription.formulary_status = "Off formulary"
+    @prescription.formulary_status = "Tier 3/PA"
     @prescription.date_prescribed = Date.current
     @prescription.active = true
 
@@ -66,6 +66,7 @@ class PrescriptionsController < ApplicationController
     #@prescription.destroy
     # we never delete prescriptions.  they just get archived
     @prescription.active = false
+    @prescription.save
     respond_to do |format|
       format.html { redirect_to @patient, notice: 'Prescription was archived.' }
       format.json { head :no_content }

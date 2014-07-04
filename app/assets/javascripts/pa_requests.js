@@ -100,7 +100,7 @@ $(function () {
     };
 
 
-     // call out to the CMM service
+     // call out to the CoverMyMeds service
      $.ajax({
           url:  'https://api.covermymeds.com/requests?v=1',
           type: 'POST',
