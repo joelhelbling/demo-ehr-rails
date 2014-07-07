@@ -116,7 +116,7 @@ describe 'eHR Example App' do
       # Find the first patient and click on them
       click_link('Amber Smith (10/01/1971')
       click_link('Add Prescription')
-      
+
       # Find a drug
       find('#s2id_prescription_drug_number').click
       find('.select2-input').set('Nexium')
