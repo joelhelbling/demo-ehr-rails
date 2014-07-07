@@ -109,7 +109,7 @@ Capybara.configure do |config|
   config.run_server = false
   config.javascript_driver = :poltergeist
   config.default_driver = :webkit
-  config.app_host = 'http://localhost:3000' # change url
+  config.app_host = 'http://localhost:3001' # change url
 
-  config.server_port = 3000
+  config.server_port = 3001
 end
