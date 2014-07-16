@@ -24,12 +24,13 @@ RSpec.describe PrescriptionsController, :type => :controller do
   # This should return the minimal set of attributes required to create a valid
   # Prescription. As you add validations to Prescription, be sure to
   # adjust the attributes here as well.
-  let(:patient) { 
+  let(:patient) {
     Patient.create!({:first_name => 'Mark', :last_name=>'Harris', :date_of_birth=>'10/11/1971', :state=>'OH' }) 
   }
 
   let(:valid_attributes) {
     {
+      :active => true,
       :drug_number=>'98033',
       :drug_name =>'Nexium',
       :quantity => '10',
@@ -62,7 +63,7 @@ RSpec.describe PrescriptionsController, :type => :controller do
     it "assigns all prescriptions as @prescriptions", :wip => true do
 #      @patient = Patient.create! :first_name=>'Mark', :last_name=>'Harris', :date_of_birth=>'10/11/1971', :state=>'OH'
       prescription = Prescription.create! valid_attributes
-      get :index, {:patient_id=>patient.id, :patient_id => patient.id }, valid_session
+      get :index, {:patient_id=>patient.id}, valid_session
       expect(assigns(:prescriptions)).to eq([prescription])
     end
   end
@@ -175,17 +176,17 @@ RSpec.describe PrescriptionsController, :type => :controller do
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested prescription" do
+    it "does not destroy the requested prescription" do
       prescription = Prescription.create! valid_attributes
       expect {
         delete :destroy, {:id => prescription.to_param, :patient_id=>patient.id}, valid_session
-      }.to change(Prescription, :count).by(-1)
+      }.to change(Prescription, :count).by(0)
     end
 
     it "redirects to the prescriptions list" do
       prescription = Prescription.create! valid_attributes
       delete :destroy, {:id => prescription.to_param, :patient_id=>patient.id}, valid_session
-      expect(response).to redirect_to(patient_prescriptions_url(patient))
+      expect(response).to redirect_to(patient_url(patient))
     end
   end
 
