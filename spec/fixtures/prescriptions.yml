@@ -8,6 +8,7 @@ prescriptions_Amber:
     patient: patient_Amber
     drug_name: 'NexIUM 2.5MG packets'
     formulary_status: 'Off Formulary'
+    active: true
 
 prescriptions_Amber4:
     drug_number: 175285
@@ -18,6 +19,7 @@ prescriptions_Amber4:
     patient: patient_Amber4
     drug_name: 'NexIUM 2.5MG packets'
     formulary_status: 'Off Formulary'
+    active: true
 
 prescriptions_Nathan:
     drug_number: 175285
@@ -28,6 +30,7 @@ prescriptions_Nathan:
     patient: patient_Nathan
     drug_name: 'NexIUM 2.5MG packets'
     formulary_status: 'Off Formulary'
+    active: true
 
 prescriptions_Becky:
     drug_number: 175285
@@ -38,3 +41,4 @@ prescriptions_Becky:
     patient: patient_Becky
     drug_name: 'NexIUM 2.5MG packets'
     formulary_status: 'Off Formulary'
+    active: true

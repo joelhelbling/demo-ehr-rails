@@ -61,7 +61,6 @@ RSpec.describe PrescriptionsController, :type => :controller do
 
   describe "GET index" do
     it "assigns all prescriptions as @prescriptions", :wip => true do
-#      @patient = Patient.create! :first_name=>'Mark', :last_name=>'Harris', :date_of_birth=>'10/11/1971', :state=>'OH'
       prescription = Prescription.create! valid_attributes
       get :index, {:patient_id=>patient.id}, valid_session
       expect(assigns(:prescriptions)).to eq([prescription])

@@ -110,14 +110,14 @@ describe 'eHR Example App' do
       expect(page).to have_content('Patient created successfully.')
     end
 
-    it 'should add a drug to a patient', js: true do
+    it 'should add a medication to a patient', js: true do
       visit '/patients'
 
       # Find the first patient and click on them
       click_link('Amber Smith (10/01/1971')
       click_link('Add Prescription')
 
-      # Find a drug
+      # Find a medication
       find('#s2id_prescription_drug_number').click
       find('.select2-input').set('Nexium')
       expect(page).to have_selector('.select2-result-selectable')
