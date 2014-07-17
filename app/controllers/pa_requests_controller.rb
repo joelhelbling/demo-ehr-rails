@@ -7,8 +7,8 @@ class PaRequestsController < ApplicationController
   	@requests = PaRequest.all
   end
 
-  # GET /patients/1/prescriptions/1/requests/1
-  # GET /patients/1/prescriptions/1/requests/1.json
+  # GET /patients/1/prescriptions/1/pa_requests/1
+  # GET /patients/1/prescriptions/1/pa_requests/1.json
   def show
     if @pa_request.cmm_link
       respond_to do |format|
@@ -18,20 +18,22 @@ class PaRequestsController < ApplicationController
     end
   end
 
-  # GET /patients/1/prescriptions/1/requests/new
+  # GET /patients/1/prescriptions/1/pa_requests/new
   def new
-    @patient = Patient.find(params[:patient_id]) 
+    @patient = Patient.find(params[:patient_id])
     @prescription = @patient.prescriptions.find(params[:prescription_id])
-    @request = @prescription.pa_requests.build 
-
+    @request = @prescription.pa_requests.build
   end
 
-  # GET /patients/1/prescriptions/1/requests/1/edit
+  # GET /patients/1/prescriptions/1/pa_requests/1/edit
   def edit
+    @patient      = Patient.find params[:patient_id]
+    @prescription = @patient.prescriptions.find params[:prescription_id]
+    @request   = @prescription.pa_requests.find params[:id]
   end
 
-  # POST /patients/1/prescriptions/1/requests
-  # POST /patients/1/prescriptions/1/requests.json
+  # POST /patients/1/prescriptions/1/pa_requests
+  # POST /patients/1/prescriptions/1/pa_requests.json
   def create
     @patient = Patient.find(params[:patient_id])
     @prescription = @patient.prescriptions.find(params[:prescription_id])
