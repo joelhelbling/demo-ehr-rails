@@ -106,7 +106,7 @@ RSpec.configure do |config|
 end
 
 Capybara.configure do |config|
-  config.run_server = false
+  config.run_server = true
   config.javascript_driver = :poltergeist
   config.default_driver = :webkit
   config.app_host = 'http://localhost:3001' # change url
