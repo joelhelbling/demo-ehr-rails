@@ -39,8 +39,8 @@ describe 'eHR Example App' do
       expect(page).to have_content('Prescriptions')
 
       find('#start_pa_request', match: :first).click
-        expect(page).to have_content('New PA Request')
-      end
+      expect(page).to have_content('New PA Request')
+    end
 
     it 'should navigate to the contact cmm view' do
       click_link('Resources')
