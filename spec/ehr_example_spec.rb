@@ -1,5 +1,4 @@
-require File.expand_path '../rails_helper.rb', __FILE__
-require File.expand_path '../spec_helper.rb', __FILE__
+require 'rails_helper'
 
 describe 'eHR Example App' do
   fixtures :all
