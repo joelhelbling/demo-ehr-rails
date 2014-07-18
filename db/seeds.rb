@@ -5,6 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Patient.all.each do |patient|
+	Patient.destroy(patient)
+end
 
 patients = [
 	{first_name:'Amber', last_name:'Smith', date_of_birth:'10/01/1971', state:'OH'},
@@ -23,4 +26,22 @@ patients = [
 
 patients.each do |patient|	
 	Patient.create(patient)
+end
+
+Pharmacy.all.each do |pharmacy|
+	Pharmacy.destroy(pharmacy)
+end
+
+pharmacies = [
+	{name:'CVS Pharmacy', street:'759 Neil Ave.', city:'Columbus', state:'OH', fax:'555-555-5555', phone:'555-555-1212'},
+	{name:'Crosbys', street:'2609 N High St.', city:'Columbus', state:'OH', fax:'555-555-5555', phone:'555-555-1212'},
+	{name:'Columbus Prescription Pharms', street:'1020 High St', city:'Worthington', state:'OH', fax:'555-555-5555', phone:'555-555-1212'},
+	{name:'Walgreens', street:'1162 Harrisburg Pike', city:'Columbus', state:'OH', fax:'555-555-5555', phone:'555-555-1212'},
+	{name:'Giant Eagle', street:'1451 W 5th Ave', city:'Columbus', state:'OH', fax:'555-555-5555', phone:'555-555-1212'},
+	{name:'Walgreens', street:'3015 E. Livingston Ave', city:'Columbus', state:'OH', fax:'555-555-5555', phone:'555-555-1212'},
+	{name:'Central Ohio Compounding Pharmacy', street:'7870 Olentangy River Rd.', city:'Columbus', state:'OH', fax:'555-555-5555', phone:'555-555-1212'}
+]
+
+pharmacies.each do |pharmacy|
+	Pharmacy.create(pharmacy)
 end
