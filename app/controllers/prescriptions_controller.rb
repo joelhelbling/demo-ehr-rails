@@ -13,21 +13,21 @@ class PrescriptionsController < ApplicationController
   def show
   end
 
-  # GET /prescriptions/new
+  # GET /patient/:patient_id/prescriptions/new
   def new
     @patient = Patient.find(params[:patient_id])
     @prescription = @patient.prescriptions.build
     @prescription.formulary_status = "Off formulary"
-    @prescription.date_prescribed = Date.current
+    @prescription.date_prescribed = DateTime.now
     @prescription.active = true
   end
 
-  # GET /prescriptions/1/edit
+  # GET /patient/:patient_id/prescriptions/1/edit
   def edit
   end
 
-  # POST /prescriptions
-  # POST /prescriptions.json
+  # POST /patient/:patient_id/prescriptions
+  # POST /patient/:patient_id/prescriptions.json
   def create
     @patient = Patient.find(params[:patient_id])
     @prescription = @patient.prescriptions.build(prescription_params)
@@ -46,8 +46,8 @@ class PrescriptionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /prescriptions/1
-  # PATCH/PUT /prescriptions/1.json
+  # PATCH/PUT /patient/:patient_id/prescriptions/1
+  # PATCH/PUT /patient/:patient_id/prescriptions/1.json
   def update
     respond_to do |format|
       if @prescription.update(prescription_params)
@@ -60,8 +60,8 @@ class PrescriptionsController < ApplicationController
     end
   end
 
-  # DELETE /prescriptions/1
-  # DELETE /prescriptions/1.json
+  # DELETE /patient/:patient_id/prescriptions/1
+  # DELETE /patient/:patient_id/prescriptions/1.json
   def destroy
     #@prescription.destroy
     # we never delete prescriptions.  they just get archived

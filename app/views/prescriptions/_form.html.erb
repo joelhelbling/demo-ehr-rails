@@ -51,6 +51,13 @@
     </p>
 
     <p>
+      <div class="field">
+        <%= f.label "Filled By", :pharmacy %><br>
+        <%= f.collection_select :pharmacy_id, Pharmacy.all, :id, :display_name %> 
+      </div>
+    </p>
+
+    <p>
       <div class="actions">
         <% if @patient.prescriptions.count == 0 %>
         <%= link_to "Cancel", patients_path, :class=>'btn btn-default' %>

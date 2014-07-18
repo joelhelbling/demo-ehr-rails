@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140623200521) do
+ActiveRecord::Schema.define(version: 20140718141005) do
 
   create_table "pa_requests", force: true do |t|
     t.integer  "prescription_id"
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 20140623200521) do
     t.datetime "updated_at"
   end
 
+  create_table "pharmacies", force: true do |t|
+    t.string   "name"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "fax"
+    t.string   "phone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "prescriptions", force: true do |t|
     t.string   "drug_number"
     t.integer  "quantity"
@@ -51,8 +62,10 @@ ActiveRecord::Schema.define(version: 20140623200521) do
     t.string   "formulary_status"
     t.datetime "date_prescribed"
     t.boolean  "active"
+    t.integer  "pharmacy_id"
   end
 
   add_index "prescriptions", ["patient_id"], name: "index_prescriptions_on_patient_id"
+  add_index "prescriptions", ["pharmacy_id"], name: "index_prescriptions_on_pharmacy_id"
 
 end
