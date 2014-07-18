@@ -18,7 +18,7 @@ class PrescriptionsController < ApplicationController
     @patient = Patient.find(params[:patient_id])
     @prescription = @patient.prescriptions.build
     @prescription.formulary_status = "Off formulary"
-    @prescription.date_prescribed = DateTime.now
+    @prescription.date_prescribed = Time.zone.now
     @prescription.active = true
   end
 
@@ -32,7 +32,7 @@ class PrescriptionsController < ApplicationController
     @patient = Patient.find(params[:patient_id])
     @prescription = @patient.prescriptions.build(prescription_params)
     @prescription.formulary_status = "Tier 3/PA"
-    @prescription.date_prescribed = Date.current
+    @prescription.date_prescribed = Time.zone.now
     @prescription.active = true
 
     respond_to do |format|
