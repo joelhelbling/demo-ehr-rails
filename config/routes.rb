@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
   resources :patients do
     resources :prescriptions do
-      resources :pa_requests
+      resources :pa_requests do
+        resource :request_pages
+      end
     end
   end
 

@@ -19,6 +19,8 @@
 //= require select2
 //= require api-jquery-plugins
 //= require config
+//= require request-pages-templates
+//= require request-pages
 //= require_tree .
 
 
