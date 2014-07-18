@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140718141005) do
+ActiveRecord::Schema.define(version: 20140718224841) do
 
   create_table "pa_requests", force: true do |t|
     t.integer  "prescription_id"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20140718141005) do
     t.string   "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "zip"
   end
 
   create_table "prescriptions", force: true do |t|

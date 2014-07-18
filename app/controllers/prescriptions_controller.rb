@@ -1,6 +1,8 @@
 class PrescriptionsController < ApplicationController
   before_action :set_prescription, only: [:show, :edit, :update, :destroy]
 
+  FORMULARY_STATUSES = ["Off formulary", "Tier 3/PA", "Tier 1", "Tier 2/PA"]
+
   # GET /prescriptions
   # GET /prescriptions.json
   def index
@@ -17,9 +19,6 @@ class PrescriptionsController < ApplicationController
   def new
     @patient = Patient.find(params[:patient_id])
     @prescription = @patient.prescriptions.build
-    @prescription.formulary_status = "Off formulary"
-    @prescription.date_prescribed = Time.zone.now
-    @prescription.active = true
   end
 
   # GET /patient/:patient_id/prescriptions/1/edit
@@ -31,7 +30,7 @@ class PrescriptionsController < ApplicationController
   def create
     @patient = Patient.find(params[:patient_id])
     @prescription = @patient.prescriptions.build(prescription_params)
-    @prescription.formulary_status = "Tier 3/PA"
+    @prescription.formulary_status = FORMULARY_STATUSES.sample
     @prescription.date_prescribed = Time.zone.now
     @prescription.active = true
 
@@ -82,6 +81,6 @@ class PrescriptionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def prescription_params
-      params.require(:prescription).permit(:drug_number, :quantity, :frequency, :refills, :dispense_as_written, :patient_id, :drug_name, :formulary_status)
+      params.require(:prescription).permit(:drug_number, :quantity, :frequency, :refills, :dispense_as_written, :patient_id, :drug_name, :formulary_status, :pharmacy_id)
     end
 end

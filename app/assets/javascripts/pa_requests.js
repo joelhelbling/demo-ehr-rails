@@ -71,7 +71,19 @@ $(function () {
               state: "OH",
               zip: "43015"
             }
-          }
+          },
+          "pharmacy": {
+               "name": $('#pharmacy_name').val(),
+               "fax_number": $('#pharmacy_fax').val(),
+               "phone_number": $('#pharmacy_phone').val(),
+               "address": {
+                 "street_1": $('#pharmacy_street').val(),
+                 "street_2": null,
+                 "city": $('#pharmacy_city').val(),
+                 "state": $('#pharmacy_state').val(),
+                 "zip": $('#pharmacy_zip').val()
+               }
+          }          
         }
       },
       success: function(request, status, xhr) {

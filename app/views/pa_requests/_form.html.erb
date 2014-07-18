@@ -27,6 +27,15 @@
     <%= hidden_field_tag :prescription_frequency, @prescription.frequency %>
     <%= hidden_field_tag :prescription_dispense_as_written, @prescription.dispense_as_written %>
     <%= hidden_field_tag :prescription_quantity, @prescription.quantity %>
+
+    <%= hidden_field_tag :pharmacy_name, @prescription.pharmacy.name %>
+    <%= hidden_field_tag :pharmacy_street, @prescription.pharmacy.street %>
+    <%= hidden_field_tag :pharmacy_city, @prescription.pharmacy.city %>
+    <%= hidden_field_tag :pharmacy_state, @prescription.pharmacy.state %>
+    <%= hidden_field_tag :pharmacy_zip, @prescription.pharmacy.zip %>
+    <%= hidden_field_tag :pharmacy_fax, @prescription.pharmacy.fax %>
+    <%= hidden_field_tag :pharmacy_phone, @prescription.pharmacy.phone %>
+
     
 
   	<p>
@@ -50,10 +59,13 @@
   	</p>
 
     <p>
-      <div class="field">
-        <%= f.label :urgent, "Urgent" %><br/>
-        <%= f.check_box :urgent, :class=>'form-control' %>
-
+      <div class="control-group">
+        <div class="controls">
+        <%= f.label :urgent, "Urgent", :class=>'checkbox' do %>
+          <%= f.check_box :urgent, :class=>'form-control' %>
+        <% end %>
+        </div>
+      </div>
   	<p>
       <%= f.label :form_id, "Form" %>
       <%= f.text_field :form_id, :class=>'form-control' %>
