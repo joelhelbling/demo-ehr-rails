@@ -25,6 +25,11 @@
     </div>
 
     <div class='form-group'>
+      <%= f.label :gender, "Gender" %>
+      <%= f.select :gender, [['male', 'm'], ['female', 'f']] %>
+    </div>
+
+    <div class='form-group'>
       <%= f.label :date_of_birth, "Birthdate" %><br>
       <%= f.text_field :date_of_birth, :class=>'form-control datepicker', :placeholder=>"e.g. 01/01/1900" %>
     </div>
