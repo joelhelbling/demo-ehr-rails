@@ -40,13 +40,13 @@ $(function () {
             last_name: $('#patient_last_name').val(),
             date_of_birth: $('#date_of_birth').val(),
             member_id: "9876543",
-            phone_number: "555-555-5555",
+            phone_number: $('#patient_phone_number').val(),
             address: {
-              street_1: "430 N. High St.",
-              street_2: "",
-              city: "Columbus",
-              state: "OH",
-              zip: "43210"
+              street_1: $('#patient_street_1').val(),
+              street_2: $('#patient_street_2').val(),
+              city: $('#patient_city').val(),
+              state: $('#patient_state').val(),
+              zip: $('#patient_zip').val()
             }
           },
           prescription: {

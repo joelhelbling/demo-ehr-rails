@@ -1,7 +1,6 @@
 <div id="patient-show" class="template">
-  <h2><%= "#{@patient.last_name}, #{@patient.first_name} (#{@patient.date_of_birth}) - #{@patient.state}" %></h2>
+  <h2><%= "#{@patient.last_name}, #{@patient.first_name} (#{@patient.date_of_birth}) - #{@patient.state} (#{@patient.email})" %><%= link_to 'Edit Patient', edit_patient_path(@patient), :class=>"btn btn-primary" %></h2>
   <hr>
-
   <h3>Prescriptions <%= link_to "Add Prescription", new_patient_prescription_path(@patient), :class=>'btn btn-success' %></h3>
 
   <% if @prescriptions.count < 1 %>
@@ -18,9 +17,9 @@
     </thead>
     <% @prescriptions.each do |prescription| %>
     <tr>
-      <td><%= prescription.drug_name %></td>
-      <td><%= prescription.formulary_status %></td>
       <% request = (prescription.pa_requests.first) || PaRequest.new %>
+      <td><%= link_to prescription.drug_name, edit_patient_prescription_path(@patient, prescription), :class=>"btn btn-primary #{(request.sent) ? 'disabled' : ''}" %></td>
+      <td><%= prescription.formulary_status %></td>
 
       <td><%= request.cmm_workflow_status || "Not yet started" %></td>
 
@@ -34,13 +33,13 @@
       <td><%= prescription.date_prescribed && prescription.date_prescribed.strftime("%B %d at %I:%M %p") %></td>
       <td>
         <%= link_to "Change Medication", edit_patient_prescription_path(@patient, prescription), :class=>"btn btn-primary #{(request.sent) ? 'disabled' : ''}"%>
-        <%= link_to "X", [@patient, prescription], method: :delete, :class=>'btn btn-xs btn-danger' %>
+            <%= link_to "X", [@patient, prescription], method: :delete, :class=>'btn btn-xs btn-danger' %>
       </td>
     </tr>
     <% end %>
   </table>
   <% end %>
 
-  <%= link_to 'Edit Patient', edit_patient_path(@patient), :class=>"btn btn-primary" %>
+  
 
 </div>
