@@ -21,7 +21,6 @@ patients = [
 	{first_name:'Amanda', last_name:'Wilson', date_of_birth:'10/01/1971', state:'OH'},
 	{first_name:'Amber', last_name:'Moore', date_of_birth:'10/01/1971', state:'OH'},
 	{first_name:'Amber', last_name:'Taylor', date_of_birth:'10/01/1971', state:'OH'}
-
 	]
 
 patients.each do |patient|	

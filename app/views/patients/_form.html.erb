@@ -1,53 +1,53 @@
 <%= form_for(@patient) do |f| %>
-  <% if @patient.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@patient.errors.count, "error") %> prohibited this patient from being saved:</h2>
+<% if @patient.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@patient.errors.count, "error") %> prohibited this patient from being saved:</h2>
 
-        <ul>
-        <% @patient.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
+  <ul>
+    <% @patient.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
     <% end %>
-    <div id="patient-add" class="template">
-      <fieldset>
-        <legend>Patient</legend>
+  </ul>
+</div>
+<% end %>
+<div id="patient-add" class="template">
+  <fieldset>
+    <legend>Patient</legend>
 
-        <p>
-            <div class="field">
-              <%= f.label :first_name, "First Name" %><br>
-              <%= f.text_field :first_name, :class=>'form-control', :placeholder=>'First Name' %>
-            </div>
-        </p>
+    <p>
+      <div class="field">
+        <%= f.label :first_name, "First Name" %><br>
+        <%= f.text_field :first_name, :class=>'form-control', :placeholder=>'First Name' %>
+      </div>
+    </p>
 
-        <p>
-            <div class="field">
-              <%= f.label :last_name, "First Name" %><br>
-              <%= f.text_field :last_name, :class=>'form-control', :placeholder=>'Last Name' %>
-            </div>
-        </p>
+    <p>
+      <div class="field">
+        <%= f.label :last_name, "First Name" %><br>
+        <%= f.text_field :last_name, :class=>'form-control', :placeholder=>'Last Name' %>
+      </div>
+    </p>
 
-        <p>
-            <div class="field">
-              <%= f.label :date_of_birth, "Birthdate" %><br>
-              <%= f.text_field :date_of_birth, :class=>'form-control datepicker', :placeholder=>"e.g. 01/01/1900" %>
-            </div>
-        </p>
+    <p>
+      <div class="field">
+        <%= f.label :date_of_birth, "Birthdate" %><br>
+        <%= f.text_field :date_of_birth, :class=>'form-control datepicker', :placeholder=>"e.g. 01/01/1900" %>
+      </div>
+    </p>
 
-        <p>
-            <div class='field'>
-              <%= f.label :state, "State"%><br/>
-              <%= f.subregion_select :state, 'US', {:priority => [@patient.state]}, :class=>'form-control', :value=>"#{@patient.state}"%>
-            </div>
-        </p>
-        <p>
-            <div class="actions">
-              <%= link_to "Cancel", patients_path, :class=>"btn btn-default cancel" %>
-              <%= f.submit "Create", :class => "btn btn-primary create" %>
-            </div>
-        </p>
+    <p>
+      <div class='field'>
+        <%= f.label :state, "State"%><br/>
+        <%= f.subregion_select :state, 'US', {:priority => [@patient.state]}, :class=>'form-control', :value=>"#{@patient.state}"%>
+      </div>
+    </p>
+    <p>
+      <div class="actions">
+        <%= link_to "Cancel", patients_path, :class=>"btn btn-default cancel" %>
+        <%= f.submit "Create", :class => "btn btn-primary create" %>
+      </div>
+    </p>
 
-      </fieldset>
+  </fieldset>
 </div>
 <% end %>

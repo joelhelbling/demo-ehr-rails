@@ -14,69 +14,78 @@
 
 <div id="request-add" class="template">
   <fieldset>
-  	<legend>New PA Request</legend>
+    <legend>Patient Details  <%= link_to "Edit Patient", edit_patient_path(@patient), :class=>'btn btn-info' %> </legend>    
 
-    <p>
-      <%= f.label :patient, "Patient" %>
-      <%= text_field_tag :patient, @patient.name, :class=>'form-control', :disabled => true, :id=>'patient' %>
+    <div class='form-group'>
+      <%= f.label :patient, "Name" %>
+      <%= f.text_field :patient, :value=>@patient.name, :class=>'form-control', :disabled => true, :id=>'patient' %>
       <%= hidden_field_tag :patient_first_name, @patient.first_name %>
       <%= hidden_field_tag :patient_last_name, @patient.last_name %>
-    </p>
-
-    <%= hidden_field_tag :prescription_refills, @prescription.refills %>
-    <%= hidden_field_tag :prescription_frequency, @prescription.frequency %>
-    <%= hidden_field_tag :prescription_dispense_as_written, @prescription.dispense_as_written %>
-    <%= hidden_field_tag :prescription_quantity, @prescription.quantity %>
-
-    <%= hidden_field_tag :pharmacy_name, @prescription.pharmacy.name %>
-    <%= hidden_field_tag :pharmacy_street, @prescription.pharmacy.street %>
-    <%= hidden_field_tag :pharmacy_city, @prescription.pharmacy.city %>
-    <%= hidden_field_tag :pharmacy_state, @prescription.pharmacy.state %>
-    <%= hidden_field_tag :pharmacy_zip, @prescription.pharmacy.zip %>
-    <%= hidden_field_tag :pharmacy_fax, @prescription.pharmacy.fax %>
-    <%= hidden_field_tag :pharmacy_phone, @prescription.pharmacy.phone %>
-
-    
-
-  	<p>
+    </div>
+    <div class='form-group'>
       <%= f.label :date_of_birth, "Date of Birth" %>
       <%= text_field_tag :date_of_birth, @patient.date_of_birth, :class=>'form-control', :disabled => true, :id=>'date_of_birth' %>
-  	</p>
-
-    <%= link_to "Edit Patient", edit_patient_path(@patient), :class=>'btn btn-info' %>
-
-    <p>
-      <%= f.label :state, "State"%><br/>
+    </div>
+    <div class='form-group'>
+      <%= f.label :state, "Lives in State"%><br/>
       <%= f.subregion_select :state, 'US', {:priority => [@patient.state]}, :class=>'form-control', :value=>"#{@patient.state}"%>
-    </p>
-
-  	<p>
-      <div class="field">
-        <%= f.label :drug_name, "Medication" %><br>
-        <%= text_field_tag :drug_name, @prescription.drug_name, :class=>'form-control', :disabled => true %>
-        <%= hidden_field_tag :drug_number, @prescription.drug_number, :class=>'form-control' %>
-      </div>
-  	</p>
-
-    <p>
-      <div class="control-group">
-        <div class="controls">
-        <%= f.label :urgent, "Urgent", :class=>'checkbox' do %>
-          <%= f.check_box :urgent, :class=>'form-control' %>
-        <% end %>
-        </div>
-      </div>
-  	<p>
-      <%= f.label :form_id, "Form" %>
-      <%= f.text_field :form_id, :class=>'form-control' %>
-  	</p>
-
-    <p>
-      <%= link_to "Cancel", @patient, :class=>'btn btn-default'%>
-      <%= f.submit "Create", :class=>'btn btn-primary', :id=>'create'%>
-    </p>
+    </div>
 
   </fieldset>
+
+  <fieldset>
+    <legend>Prescription Details</legend>
+
+    <%= hidden_field :pharmacy_name, @prescription.pharmacy.name %>
+    <%= hidden_field :pharmacy_street, @prescription.pharmacy.street %>
+    <%= hidden_field :pharmacy_city, @prescription.pharmacy.city %>
+    <%= hidden_field :pharmacy_state, @prescription.pharmacy.state %>
+    <%= hidden_field :pharmacy_zip, @prescription.pharmacy.zip %>
+    <%= hidden_field :pharmacy_fax, @prescription.pharmacy.fax %>
+    <%= hidden_field :pharmacy_phone, @prescription.pharmacy.phone %>
+
+    <div class="form-group">
+      <%= f.label :drug_name, "Medication" %><br>
+      <%= text_field_tag :prescription_drug_name, @prescription.drug_name, :class=>'form-control', :disabled => true %>
+      <%= hidden_field_tag :drug_number, @prescription.drug_number, :class=>'form-control' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :prescription_refills, "Refills" %>
+      <%= text_field_tag :prescription_refills, @prescription.refills, :class=>'form-control', :disabled=>true %>
+    </div>
+    <div class='form-group'>
+      <%= f.label :prescription_frequency, "Frequency" %>
+      <%= text_field_tag :prescription_frequency, @prescription.frequency, :class=>'form-control', :disabled=>true %>
+    </div>
+    <div class='checkbox'>
+      <%= f.label :prescription_dispense_as_written do %>
+        <%= check_box_tag :prescription_dispense_as_written, @prescription.dispense_as_written, :class=>'checkbox', :disabled=>true %>
+        <b>Dispense as Written?</b>
+      <% end %>
+    </div>
+    <div class='form-group'>
+      <%= f.label :prescription_quantity, "Quantity" %>
+      <%= text_field_tag :prescription_quantity, @prescription.quantity, :class=>'form-control', :disabled=>true %>
+    </div>
+
+    <div class='checkbox'>
+      <%= f.label :urgent do %>
+      <%= f.check_box :urgent, :class=>'checkbox' %>
+      <b>Urgent?</b>
+      <% end %>
+    </div>
+    
+    <div class='form-group'>
+      <%= f.label :form_id, "Form" %>
+      <%= f.text_field :form_id, :class=>'form-control' %>
+    </div>
+
+  </fieldset>
+  <div class='form-actions'>
+    <%= link_to "Cancel", @patient, :class=>'btn btn-default'%>
+    <%= f.submit "Create", :class=>'btn btn-primary', :id=>'create'%>
+  </div>
 </div>
 
 <% end %>

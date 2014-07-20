@@ -17,14 +17,14 @@ module ApplicationHelper
     html = "<div class='row'>"
     flash.each do |key, value| 
       html += <<-HTML
-        <div class="alert alert-info fade in" id="flash_#{value}">
-            <button type='button' class='close' data-dismiss='alert'>&times;</button>
-            #{value}
-        </div>      
+      <div class="alert alert-info fade in" id="flash_#{value}">
+        <button type='button' class='close' data-dismiss='alert'>&times;</button>
+        #{value}
+      </div>      
       HTML
     end
 
     html.html_safe
-   end
+  end
   
 end
