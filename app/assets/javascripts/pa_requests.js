@@ -41,6 +41,8 @@ $(function () {
             date_of_birth: $('#date_of_birth').val(),
             member_id: "9876543",
             phone_number: $('#patient_phone_number').val(),
+            email: $('#patient_email').val(),
+            gender: $('#patient_gender').val(),
             address: {
               street_1: $('#patient_street_1').val(),
               street_2: $('#patient_street_2').val(),

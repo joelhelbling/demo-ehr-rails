@@ -21,6 +21,9 @@
       <%= f.text_field :patient, :value=>@patient.name, :class=>'form-control', :disabled => true, :id=>'patient' %>
       <%= hidden_field_tag :patient_first_name, @patient.first_name %>
       <%= hidden_field_tag :patient_last_name, @patient.last_name %>
+      <%= hidden_field_tag :patient_phone_number, @patient.phone_number %>
+      <%= hidden_field_tag :patient_email, @patient.email %>
+      <%= hidden_field_tag :patient_gender, @patient.gender %>
     </div>
     <div class='form-group'>
       <%= f.label :date_of_birth, "Date of Birth" %>
@@ -29,6 +32,10 @@
     <div class='form-group'>
       <%= f.label :state, "Lives in State"%><br/>
       <%= f.subregion_select :state, 'US', {:priority => [@patient.state]}, :class=>'form-control', :value=>"#{@patient.state}"%>
+      <%= hidden_field_tag :patient_street_1, @patient.street_1 %>
+      <%= hidden_field_tag :patient_street_2, @patient.street_2 %>
+      <%= hidden_field_tag :patient_city, @patient.city %>
+      <%= hidden_field_tag :patient_zip, @patient.zip %>
     </div>
 
   </fieldset>
