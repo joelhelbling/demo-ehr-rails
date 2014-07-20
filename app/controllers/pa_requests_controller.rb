@@ -4,7 +4,7 @@ class PaRequestsController < ApplicationController
   # GET /requests
   # GET /requests.json
   def index
-  	@requests = PaRequest.all
+    @requests = PaRequest.all
   end
 
   # GET /patients/1/prescriptions/1/pa_requests/1
@@ -64,4 +64,4 @@ class PaRequestsController < ApplicationController
       params.require(:pa_request).permit(:prescription_id, :form_id, :urgent, :state, :sent, :cmm_token, :cmm_link, :cmm_id, :cmm_workflow_status)
     end
 
-end
+  end
