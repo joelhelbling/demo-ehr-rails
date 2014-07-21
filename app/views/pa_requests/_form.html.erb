@@ -1,3 +1,4 @@
+<h1>New PA Request</h1>
 <%= form_for [@patient, @prescription, @request] do |f| %>
 
 <% if @request.errors.any? %>
@@ -14,7 +15,7 @@
 
 <div id="request-add" class="template">
   <fieldset>
-    <legend>Patient Details  <%= link_to "Edit Patient", edit_patient_path(@patient), :class=>'btn btn-info' %> </legend>    
+    <legend><h2>Patient Details</h2>  <%= link_to "Edit Patient", edit_patient_path(@patient), :class=>'btn btn-info' %> </legend>    
 
     <div class='form-group'>
       <%= f.label :patient, "Name" %>
@@ -41,7 +42,7 @@
   </fieldset>
 
   <fieldset>
-    <legend>Prescription Details</legend>
+    <legend><h2>Prescription Details</h2></legend>
 
     <%= hidden_field :pharmacy_name, @prescription.pharmacy.name %>
     <%= hidden_field :pharmacy_street, @prescription.pharmacy.street %>
