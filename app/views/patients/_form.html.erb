@@ -14,39 +14,62 @@
   <fieldset>
     <legend>Patient</legend>
 
-    <p>
-      <div class="field">
-        <%= f.label :first_name, "First Name" %><br>
-        <%= f.text_field :first_name, :class=>'form-control', :placeholder=>'First Name' %>
-      </div>
-    </p>
+    <div class='form-group'>
+      <%= f.label :first_name, "First Name" %><br>
+      <%= f.text_field :first_name, :class=>'form-control', :placeholder=>'First Name' %>
+    </div>
 
-    <p>
-      <div class="field">
-        <%= f.label :last_name, "First Name" %><br>
-        <%= f.text_field :last_name, :class=>'form-control', :placeholder=>'Last Name' %>
-      </div>
-    </p>
+    <div class='form-group'>
+      <%= f.label :last_name, "Last Name" %><br>
+      <%= f.text_field :last_name, :class=>'form-control', :placeholder=>'Last Name' %>
+    </div>
 
-    <p>
-      <div class="field">
-        <%= f.label :date_of_birth, "Birthdate" %><br>
-        <%= f.text_field :date_of_birth, :class=>'form-control datepicker', :placeholder=>"e.g. 01/01/1900" %>
-      </div>
-    </p>
+    <div class='form-group'>
+      <%= f.label :gender, "Gender" %>
+      <%= f.select :gender, [['male', 'm'], ['female', 'f']] %>
+    </div>
 
-    <p>
-      <div class='field'>
-        <%= f.label :state, "State"%><br/>
-        <%= f.subregion_select :state, 'US', {:priority => [@patient.state]}, :class=>'form-control', :value=>"#{@patient.state}"%>
-      </div>
-    </p>
-    <p>
-      <div class="actions">
-        <%= link_to "Cancel", patients_path, :class=>"btn btn-default cancel" %>
-        <%= f.submit "Create", :class => "btn btn-primary create" %>
-      </div>
-    </p>
+    <div class='form-group'>
+      <%= f.label :date_of_birth, "Birthdate" %><br>
+      <%= f.text_field :date_of_birth, :class=>'form-control datepicker', :placeholder=>"e.g. 01/01/1900" %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :street_1, "Street Address" %><br>
+      <%= f.text_field :street_1, :class=>'form-control', :placeholder=>'1234 Main St.' %>
+    </div>
+    <div class='form-group'>
+      <%= f.label :street_2, "Apartment/Suite #" %><br>
+      <%= f.text_field :street_2, :class=>'form-control', :placeholder=>'Apartment/Suite #' %>
+    </div>
+    <div class='form-group'>
+      <%= f.label :city, "City" %><br>
+      <%= f.text_field :city, :class=>'form-control', :placeholder=>'City' %>
+    </div>
+    <div class='field'>
+      <%= f.label :state, "State"%><br/>
+      <%= f.subregion_select :state, 'US', {:priority => [@patient.state]}, :class=>'form-control', :value=>"#{@patient.state}"%>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :zip, "Zip" %><br>
+      <%= f.text_field :zip, :class=>'form-control', :placeholder=>'12345' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :phone_number, "Phone Number" %><br>
+      <%= f.text_field :phone_number, :class=>'form-control', :placeholder=>'e.g. 555-555-5555' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :email, "Email" %><br>
+      <%= f.text_field :email, :class=>'form-control', :placeholder=>'e.g. example@example.com' %>
+    </div>
+
+    <div class="actions">
+      <%= link_to "Cancel", patients_path, :class=>"btn btn-default cancel" %>
+      <%= f.submit "Create", :class => "btn btn-primary create" %>
+    </div>
 
   </fieldset>
 </div>
