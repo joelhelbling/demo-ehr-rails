@@ -16,11 +16,11 @@ patients = [
   {first_name:'Nathan', last_name:'Jones', date_of_birth:'10/01/1971', street_1:'221 Baker St.', street_2:'Apt B', city:'London', state:'OH', zip:'43210', phone_number:'614-555-1212', email:'test@covermymeds.com'},
   {first_name:'Becky', last_name:'Brown', date_of_birth:'10/01/1971', street_1:'221 Baker St.', street_2:'Apt B', city:'London', state:'OH', zip:'43210', phone_number:'614-555-1212', email:'test@covermymeds.com'},
 
-  {first_name:'Mark', last_name:'Davis', date_of_birth:'10/01/1971', state:'OH'},
-  {first_name:'Mike', last_name:'Miller', date_of_birth:'10/01/1971', state:'OH'},
-  {first_name:'Amanda', last_name:'Wilson', date_of_birth:'10/01/1971', state:'OH'},
-  {first_name:'Amber', last_name:'Moore', date_of_birth:'10/01/1971', state:'OH'},
-  {first_name:'Amber', last_name:'Taylor', date_of_birth:'10/01/1971', state:'OH'}
+  {first_name:'Mark', last_name:'Davis', date_of_birth:'10/01/1971', street_1:'221 Baker St.', street_2:'Apt B', city:'London', state:'OH', zip:'43210', phone_number:'614-555-1212', email:'test@covermymeds.com'},
+  {first_name:'Mike', last_name:'Miller', date_of_birth:'10/01/1971', street_1:'221 Baker St.', street_2:'Apt B', city:'London', state:'OH', zip:'43210', phone_number:'614-555-1212', email:'test@covermymeds.com'},
+  {first_name:'Amanda', last_name:'Wilson', date_of_birth:'10/01/1971', street_1:'221 Baker St.', street_2:'Apt B', city:'London', state:'OH', zip:'43210', phone_number:'614-555-1212', email:'test@covermymeds.com'},
+  {first_name:'Amber', last_name:'Moore', date_of_birth:'10/01/1971', street_1:'221 Baker St.', street_2:'Apt B', city:'London', state:'OH', zip:'43210', phone_number:'614-555-1212', email:'test@covermymeds.com'},
+  {first_name:'Amber', last_name:'Taylor', date_of_birth:'10/01/1971', street_1:'221 Baker St.', street_2:'Apt B', city:'London', state:'OH', zip:'43210', phone_number:'614-555-1212', email:'test@covermymeds.com'}
 
   ]
 

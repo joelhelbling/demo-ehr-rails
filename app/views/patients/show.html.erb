@@ -32,7 +32,6 @@
       </td>
       <td><%= prescription.date_prescribed && prescription.date_prescribed.strftime("%B %d at %I:%M %p") %></td>
       <td>
-        <%= link_to "Change Medication", edit_patient_prescription_path(@patient, prescription), :class=>"btn btn-primary #{(request.sent) ? 'disabled' : ''}"%>
             <%= link_to "X", [@patient, prescription], method: :delete, :class=>'btn btn-xs btn-danger' %>
       </td>
     </tr>
