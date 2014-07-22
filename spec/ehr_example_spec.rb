@@ -11,13 +11,13 @@ describe 'eHR Example App' do
       visit '/'
     end
 
-    it 'should navigate to the patients view', :wip => true do
+    it 'should navigate to the patients view', js:true do
       click_link('Patients')
       expect(page).to have_content('Patients')
       expect(page).to have_content('Patients')
     end
 
-    it 'should navigate to the home view' do
+    it 'should navigate to the home view', js:true do
       visit '/patients' # To test the home link visit another page besides the home page
       click_link('Home')
       expect(page).to have_content('Lets pretend that this is your EHR...')
@@ -114,7 +114,7 @@ describe 'eHR Example App' do
 
       # Find the first patient and click on them
       click_link('Amber Smith (10/01/1971')
-      click_link('Add Prescription')
+        click_link('Add Prescription')
 
       # Find a medication
       find('#s2id_prescription_drug_number').click

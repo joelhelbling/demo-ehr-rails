@@ -1,7 +1,7 @@
 class PrescriptionsController < ApplicationController
   before_action :set_prescription, only: [:show, :edit, :update, :destroy]
 
-  FORMULARY_STATUSES = ["Off formulary", "Tier 3/PA", "Tier 1", "Tier 2/PA"]
+  FORMULARY_STATUSES = ["Off formulary", "Tier 3/PA", "Tier 1", "Tier 2/PA"].freeze
 
   # GET /prescriptions
   # GET /prescriptions.json
@@ -83,4 +83,4 @@ class PrescriptionsController < ApplicationController
     def prescription_params
       params.require(:prescription).permit(:drug_number, :quantity, :frequency, :refills, :dispense_as_written, :patient_id, :drug_name, :formulary_status, :pharmacy_id)
     end
-end
+  end

@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :request_tokens
 
   def request_tokens
-  	PaRequest.select('cmm_token').inject([]) {|acc,n| acc.push("'#{n.cmm_token}'")}
+    PaRequest.select('cmm_token').inject([]) {|acc,n| acc.push("'#{n.cmm_token}'")}
   end
   
 end

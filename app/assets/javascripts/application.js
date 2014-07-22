@@ -23,14 +23,14 @@
 
 
 $(function() {
-	var options = {
-		apiId: '1vd9o4427lyi0ccb2uem',
-		version: 1,
-	};
+    var options = {
+        apiId: '1vd9o4427lyi0ccb2uem',
+        version: 1,
+    };
 
-	$('.alert').delay(500).fadeIn('normal', function() {
-		$(this).delay(1500).fadeOut();
-	});
+    $('.alert').delay(500).fadeIn('normal', function() {
+        $(this).delay(1500).fadeOut();
+    });
 
-	$('#create_request').createRequest(options);
+    $('#create_request').createRequest(options);
 });
