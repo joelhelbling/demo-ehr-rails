@@ -1,6 +1,6 @@
 $(function () {
   var options = {
-    apiId: '1vd9o4427lyi0ccb2uem',
+    apiId: 'd895441311099b4f52cb',
     version: 1,
   };
 
@@ -16,7 +16,7 @@ $(function () {
 
 
   var dashboard_options = {
-    apiId: '1vd9o4427lyi0ccb2uem',
+    apiId: options.apiId,
     version: 1,
     tokenIds: eval($('meta[name=tokens]').attr('content')) || eval([ ])
   };
