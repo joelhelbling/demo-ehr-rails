@@ -1,9 +1,5 @@
 $(function () {
-  var options = {
-    apiId: 'd895441311099b4f52cb',
-    version: 1,
-  };
-
+  var options = window.config;
 
   var form_options = {
     apiId: options.apiId,

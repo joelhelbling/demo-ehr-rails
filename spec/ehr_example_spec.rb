@@ -52,6 +52,17 @@ describe 'eHR Example App' do
       click_link('API Documentation')
       expect(page).to have_title('API Reference')
     end
+
+    it 'should navigate to the dashbaord view from button' do
+      click_link('Start Task List Workflow')
+      expect(page).to have_content('Your Prior Auth Dashboard')
+    end
+
+    it 'should navigate to the patient list from button' do 
+      click_link('Start e-Prescribing Workflow')
+      expect(page).to have_content('Patients')
+    end
+
   end
 
   # Test everything a user can do on the patients index
