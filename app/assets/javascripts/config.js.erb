@@ -1,0 +1,13 @@
+/*jslint sloppy: true */
+/*global window: false */
+(function (window) {
+  /**
+   * For security, it's best to remove this file, and store your API ID and
+   * secret in a server-side API middleman endpoint.
+   */
+   // 'd895441311099b4f52cb',
+  window.config = {
+    apiId:  '<%= Rails.application.secrets.cmm_api_id %>',
+    version: 1
+  };
+}(window));

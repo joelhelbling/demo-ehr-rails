@@ -17,16 +17,13 @@
 //= require bootstrap-datepicker
 //= require underscore
 //= require select2
-//= require api-jquery-plugins
 //= require config
+//= require api-jquery-plugins
 //= require_tree .
 
 
 $(function() {
-    var options = {
-        apiId: 'd895441311099b4f52cb',
-        version: 1,
-    };
+    var options = window.config;
 
     $('.alert').delay(500).fadeIn('normal', function() {
         $(this).delay(1500).fadeOut();
