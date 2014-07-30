@@ -1,0 +1,11 @@
+<h1>Prior Auth Request</h1>
+
+<% content_for :view_js do %>
+  <script type='text/javascript'>
+    new RequestPages(<%= @patient.id %>, <%= @prescription.id %>, <%= @pa_request.id %>);
+  </script>
+<% end %>
+
+<div class="request-pages">
+  Loading Prior Authorization form...
+</div>

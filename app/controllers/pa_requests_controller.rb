@@ -56,7 +56,7 @@ class PaRequestsController < ApplicationController
       @patient = Patient.find(params[:patient_id])
       @prescription = @patient.prescriptions.find(params[:prescription_id])
       @pa_request = @prescription.pa_requests.find(params[:id])
-      logger.debug "#{@request}"
+      logger.debug "#{@pa_request}"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
