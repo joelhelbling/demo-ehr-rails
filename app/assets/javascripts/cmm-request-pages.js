@@ -22,7 +22,7 @@ __p += '<div class="question choice ' +
 '"\n          ' +
 ((__t = ( question.selectMultiple() )) == null ? '' : __t) +
 ' >\n    ';
- question.choices.forEach( function(choice){ ;
+ question.choices().forEach( function(choice){ ;
 __p += '\n      <option value="' +
 ((__t = ( choice.choice_id )) == null ? '' : __t) +
 '"\n              ' +
