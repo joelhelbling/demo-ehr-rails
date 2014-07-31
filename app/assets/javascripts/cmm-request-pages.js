@@ -4,6 +4,36 @@
  */
 this["JST"] = this["JST"] || {};
 
+this["JST"]["action-button"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<button class=\'' +
+((__t = ( action.slug() )) == null ? '' : __t) +
+' btn\'>' +
+((__t = ( action.title )) == null ? '' : __t) +
+'</button>\n';
+
+}
+return __p
+};
+
+this["JST"]["action-link"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<a class=\'' +
+((__t = ( action.slug )) == null ? '' : __t) +
+' btn\' href=\'' +
+((__t = ( action.href )) == null ? '' : __t) +
+'\'>' +
+((__t = ( action.title )) == null ? '' : __t) +
+'</a>\n';
+
+}
+return __p
+};
+
 this["JST"]["choice-question"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -42,13 +72,19 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<form class=\'request-pages-form\'>\n  ';
+__p += '<form class=\'request-pages-form\' method="POST">\n  ';
  form.questionSets.forEach( function(questionSet) { ;
 __p += '\n    ' +
 ((__t = ( questionSet.render() )) == null ? '' : __t) +
 '\n  ';
  }); ;
-__p += '\n\n  <fieldset class=\'controls\'>\n    <button class=\'request-pages cancel btn\'>Cancel</button>\n    <button class=\'request-pages submit btn default\'>Save Changes</button>\n  </fieldset>\n</form>\n';
+__p += '\n\n  <fieldset class=\'controls\'>\n    <input type=\'hidden\' class=\'form_action\' name=\'form_action\' value=\'\' />\n\n    ';
+ form.actions.forEach( function(action) { ;
+__p += '\n      ' +
+((__t = ( action.render() )) == null ? '' : __t) +
+'\n    ';
+ }); ;
+__p += '\n  </fieldset>\n</form>\n';
 
 }
 return __p
@@ -129,11 +165,8 @@ window.RequestPages = function(patientId, prescriptionId, paRequestId) {
   this._getSuccessCallback = _.bind(function(data) {
     this.form = new RequestPages.Form(data['request_page']);
     $(this.selector).html(this.form.render());
-    return this._setupFormHandlers();
 
   }, this);
-
-  this._setupFormHandlers = _.bind(function(){}, this);
 
   $.get(this._resourceUrl(), this._getSuccessCallback);
 
@@ -147,8 +180,17 @@ window.RequestPages.Form = function(requestPages) {
   this.questionSets = [];
   requestPages['forms']['pa_request']['question_sets'].forEach(
     _.bind(function(questionSet) {
-      this.questionSets.push(new RequestPages.QuestionSet(questionSet, this.currentValues));
+      this.questionSets.push(
+        new RequestPages.QuestionSet(questionSet, this.currentValues)
+      );
+
     }, this));
+
+  this.actions = [];
+  requestPages['actions'].forEach(_.bind(function(action) {
+    this.actions.push( new RequestPages.Form.Action(action) );
+
+  }, this));
 
   this.find_question_by_id = _.bind(function(questionId) {
     var foundQuestion = {};
@@ -166,6 +208,31 @@ window.RequestPages.Form = function(requestPages) {
     return JST[this.template]({ form: this });
   }, this);
 
+};
+
+window.RequestPages.Form.Action = function(actionJson) {
+  this.ref    = actionJson[ 'ref'    ];
+  this.title  = actionJson[ 'title'  ];
+  this.href   = actionJson[ 'href'   ];
+  this.method = actionJson[ 'method' ];
+
+  this.template = 'action-button';
+
+  this.slug = _.bind(function() {
+    return this.title.toLowerCase().replace(/[\s\/]+/g, '_');
+  }, this);
+
+  this._addHandler = _.bind(function() {
+    var btnSelector = 'button.' + this.slug();
+    $('.request-pages').on('click', btnSelector, _.bind(function(e) {
+      $('input.form_action').val(this.title);
+    }, this));
+  }, this);
+
+  this.render = _.bind(function() {
+    this._addHandler();
+    return JST[this.template]({ action: this });
+  }, this);
 };
 
 window.RequestPages.QuestionSet = function(questionSetJson, currentValues) {

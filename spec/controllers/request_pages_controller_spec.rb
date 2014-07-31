@@ -30,17 +30,85 @@ describe RequestPagesController, type: :controller do
 
   describe 'GET show' do
     context 'format json' do
-      let(:rp_json) { { 'some' => 'json' } }
-      before { allow_any_instance_of(CmmApi::Client).to receive(:request_pages) { rp_json } }
+      let(:action_url) { 'http://api.cmm.com?token_id=etc' }
+      let(:rp_json) do
+        JSON.parse( {
+          request_page: {
+            actions: [
+              { href: action_url, ref: 'pa_request', method: 'PUT', title: 'Save' }
+            ]
+          }
+        }.to_json )
+      end
+      let(:client_params) { { id: pa_request.cmm_id, token_id: pa_request.cmm_token } }
+      let(:show_params) do
+        {
+          format: 'json',
+          patient_id: patient.id,
+          prescription_id: prescription.id,
+          pa_request_id: pa_request.id
+        }
+      end
+
+      before do
+        allow_any_instance_of(CmmApi::Client).to receive(:request_pages) { rp_json }
+      end
 
       it 'retrieves the request-pages for the pa request' do
-        expect_any_instance_of(CmmApi::Client).to receive(:request_pages).with( { id: pa_request.cmm_id, token_id: pa_request.cmm_token })
-        get :show, { format: 'json', patient_id: patient.id, prescription_id: prescription.id, pa_request_id: pa_request.id }
+        expect_any_instance_of(CmmApi::Client).to receive(:request_pages).with( client_params )
+        get :show, show_params
+      end
+
+      it 'stores the actions in the pa_request' do
+        get :show, show_params
+        pa_request.reload
+        expect(pa_request.request_pages_actions).to include(action_url)
+      end
+
+      it 'hides the actions from the browser' do
+        get :show, show_params
+        expect(subject.instance_variable_get(:@request_pages_json)).to_not include(action_url)
       end
     end
   end
 
-  describe 'POST create' do
+  describe 'POST request_pages' do
+    context 'format json' do
+      let(:cmm_action_url) { 'http://api.cmm.com?token_id=etc' }
+      let(:cmm_action) do
+        JSON.parse({
+          href:    cmm_action_url,
+          ref:     'pa_request',
+          method:  'PUT',
+          title:   'Save'
+        }.to_json)
+      end
+      let(:cmm_actions) { [ cmm_action ] }
+      let(:params) do
+        {
+          patient_id:       1,
+          prescription_id:  1,
+          pa_request_id:    1,
+          form_action:      'Save',
+          some:             'application/x-www-form-urlencoded form data'
+        }
+      end
+      let(:rp_params) do
+        {
+          some:             'application/x-www-form-urlencoded form data'
+        }
+      end
 
+
+      before do
+        pa_request.update_attributes request_pages_actions: cmm_actions.to_json
+      end
+
+      it 'sends the request json to the CMM API' do
+        expect_any_instance_of(CmmApi::Client).to receive(:save_request_pages).with( cmm_action, rp_params )
+        post :create, params
+      end
+
+    end
   end
 end

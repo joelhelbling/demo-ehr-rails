@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140720151619) do
+ActiveRecord::Schema.define(version: 20140730132957) do
 
   create_table "pa_requests", force: true do |t|
     t.integer  "prescription_id"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20140720151619) do
     t.string   "cmm_link"
     t.string   "cmm_id"
     t.string   "cmm_workflow_status"
+    t.string   "request_pages_actions"
   end
 
   add_index "pa_requests", ["prescription_id"], name: "index_pa_requests_on_prescription_id"
