@@ -48,8 +48,6 @@ __p += '<div class="question checkbox ' +
 ((__t = ( question.questionId() )) == null ? '' : __t) +
 '"\n           value="' +
 ((__t = ( question.value )) == null ? '' : __t) +
-'"\n           placeholder="' +
-((__t = ( question.placeholder() )) == null ? '' : __t) +
 '"\n           ' +
 ((__t = ( question.isRequired() )) == null ? '' : __t) +
 '\n    />\n    ' +
@@ -99,6 +97,8 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<div class="question date ' +
 ((__t = ( question.isRequired() )) == null ? '' : __t) +
+' ' +
+((__t = ( question.questionId )) == null ? '' : __t) +
 '">\n  <label for="' +
 ((__t = ( question.questionId() )) == null ? '' : __t) +
 '">\n    ' +
@@ -320,8 +320,12 @@ window.RequestPages = function(patientId, prescriptionId, paRequestId) {
   }, this);
 
   this._getSuccessCallback = _.bind(function(data) {
-    this.form = new RequestPages.Form(data['request_page']);
+    this.form = new RequestPages.Form(data['request_page']['forms'], data['request_page']['data'], data['request_page']['actions']);
     $(this.container).html(this.form.render());
+    $(this.container).find('form').on('submit', _.bind(function(e) {
+      this.postForm();
+      return false;
+    }, this));
 
   }, this);
 
@@ -330,17 +334,32 @@ window.RequestPages = function(patientId, prescriptionId, paRequestId) {
 
   }, this);
 
+  this.postForm = _.bind(function() {
+    $.post(
+      this._resourceUrl(),
+      $(this.container).find('form').serialize(),
+      this._getSuccessCallback );
+
+  }, this);
+
 };
 
 
-window.RequestPages.Form = function(requestPages) {
-  this.currentValues = requestPages['data']['pa_request'];
+window.RequestPages.Form = function(formsJson, currentValues, actions) {
+  this.actionsJson   = actions;
 
   this.template = 'form';
 
+  this.name = _.bind(function() {
+    return Object.keys(formsJson)[0];
+
+  }, this);
+
+  this.formJson      = formsJson[this.name()];
+  this.currentValues = currentValues[this.name()];
+
   this.questionSets = [];
-  requestPages['forms']['pa_request']['question_sets'].forEach(
-    _.bind(function(questionSet) {
+  this.formJson['question_sets'].forEach(_.bind(function(questionSet) {
       this.questionSets.push(
         new RequestPages.QuestionSet(questionSet, this.currentValues)
       );
@@ -348,7 +367,7 @@ window.RequestPages.Form = function(requestPages) {
     }, this));
 
   this.actions = [];
-  requestPages['actions'].forEach(_.bind(function(action) {
+  this.actionsJson.forEach(_.bind(function(action) {
     this.actions.push( new RequestPages.Form.Action(action) );
 
   }, this));

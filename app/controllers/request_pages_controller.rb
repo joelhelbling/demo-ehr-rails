@@ -45,11 +45,24 @@ class RequestPagesController < ApplicationController
         action['title'] == action_name
       end.first
 
-      [:patient_id, :prescription_id, :pa_request_id, :form_action, :controller, :action].each {|k| rp_params.delete k }
-      if client.save_request_pages(action, rp_params)
-        format.html { redirect_to @pa_request, notice: 'Request Pages successfully updated' }
-      else
-        format.html { render :show, notice: 'Unable to save changes!' }
+      [:patient_id, :prescription_id, :pa_request_id, :form_action, :controller, :action, :format].each {|k| rp_params.delete k }
+      # if response = client.send_request_pages(action, rp_params)
+      #   puts "response from #{action_name}: #{response}"
+      #   format.html { render :show, notice: "Request Pages successfully updated (#{response})" }
+      # else
+      #   format.html { render :show, notice: 'Unable to save changes!' }
+      # end
+      format.json do
+        @request_pages_json = client.send_request_pages(action, rp_params)
+
+        # save actions
+        actions = @request_pages_json['request_page']['actions']
+        @pa_request.update_attributes request_pages_actions: actions.to_json
+
+        # replace actions in json (don't send tokens to browser)
+        @request_pages_json['request_page']['actions'].each do |action|
+          action['href'] = patient_prescription_pa_request_request_pages_path( action: action['title'], format: 'json' )
+        end
       end
     end
 

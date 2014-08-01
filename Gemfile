@@ -66,3 +66,4 @@ end
 gem 'debugger', group: [:development, :test]
 
 gem 'cmm_api', git: 'https://github.com/joelhelbling/cmm_api.git'
+# gem 'cmm_api', path: '../cmm_api/'

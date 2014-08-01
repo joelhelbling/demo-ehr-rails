@@ -6,9 +6,9 @@ GIT
 
 GIT
   remote: https://github.com/joelhelbling/cmm_api.git
-  revision: 9c1af52ab04dc14f8a835467debd95e831e8d52a
+  revision: da8bd694966e5c010c6083e3dc9134606e837a78
   specs:
-    cmm_api (0.0.3)
+    cmm_api (0.0.7)
       httparty
 
 GEM

@@ -118,13 +118,32 @@ describe RequestPagesController, type: :controller do
         }
       end
 
+      let(:action_url) { 'http://api.cmm.com?token_id=etc' }
+      let(:rp_json) do
+        JSON.parse( {
+          request_page: {
+            actions: [
+              {
+                href:    action_url,
+                ref:     'pa_request',
+                method:  'PUT',
+                title:   'Save'
+              }
+            ]
+          }
+        }.to_json )
+      end
+
       before do
         pa_request.update_attributes request_pages_actions: cmm_actions.to_json
+        allow_any_instance_of(CmmApi::Client).to receive(:request_pages) do
+          rp_json
+        end
       end
 
       it 'sends the request json to the CMM API' do
-        expect_any_instance_of(CmmApi::Client).to receive(:save_request_pages).with( cmm_action, rp_params )
-        post :create, params
+        expect_any_instance_of(CmmApi::Client).to receive(:send_request_pages).with( cmm_action, rp_params ) { rp_json }
+        post :create, params.merge( format: :json )
       end
 
     end
