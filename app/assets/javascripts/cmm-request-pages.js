@@ -34,6 +34,32 @@ __p += '<a class=\'' +
 return __p
 };
 
+this["JST"]["checkbox-question"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="question checkbox ' +
+((__t = ( question.isRequired() )) == null ? '' : __t) +
+'">\n  <label for="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'">\n\n    <input type="checkbox"\n           id="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'"\n           name="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'"\n           value="' +
+((__t = ( question.value )) == null ? '' : __t) +
+'"\n           placeholder="' +
+((__t = ( question.placeholder() )) == null ? '' : __t) +
+'"\n           ' +
+((__t = ( question.isRequired() )) == null ? '' : __t) +
+'\n    />\n    ' +
+((__t = ( question.questionText() )) == null ? '' : __t) +
+'\n\n  </label>\n</div>\n\n';
+
+}
+return __p
+};
+
 this["JST"]["choice-question"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -67,6 +93,54 @@ __p += '\n  </select>\n\n</div>\n';
 return __p
 };
 
+this["JST"]["date-question"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="question date ' +
+((__t = ( question.isRequired() )) == null ? '' : __t) +
+'">\n  <label for="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'">\n    ' +
+((__t = ( question.questionText() )) == null ? '' : __t) +
+'\n  </label>\n\n  <input type="date"\n         id="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'"\n         name="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'"\n         value="' +
+((__t = ( question.value )) == null ? '' : __t) +
+'"\n         ' +
+((__t = ( question.isRequired() )) == null ? '' : __t) +
+'\n  />\n</div>\n';
+
+}
+return __p
+};
+
+this["JST"]["file-question"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="question file ' +
+((__t = ( question.isRequired() )) == null ? '' : __t) +
+'">\n  <label for="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'">\n    ' +
+((__t = ( question.questionText() )) == null ? '' : __t) +
+'\n  </label>\n\n  <input type="file"\n         id="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'"\n         name="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'"\n         value="' +
+((__t = ( question.value )) == null ? '' : __t) +
+'"\n         ' +
+((__t = ( question.isRequired() )) == null ? '' : __t) +
+'\n  />\n</div>\n\n';
+
+}
+return __p
+};
+
 this["JST"]["form"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
@@ -90,6 +164,32 @@ __p += '\n  </fieldset>\n</form>\n';
 return __p
 };
 
+this["JST"]["free-area-question"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="question free-area ' +
+((__t = ( question.isRequired() )) == null ? '' : __t) +
+'">\n  <label for="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'">\n    ' +
+((__t = ( question.questionText() )) == null ? '' : __t) +
+'\n  </label>\n\n  <textarea\n    id="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'"\n    name="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'"\n    placeholder="' +
+((__t = ( question.placeholder() )) == null ? '' : __t) +
+'"\n    ' +
+((__t = ( question.isRequired() )) == null ? '' : __t) +
+' >\n\n    ' +
+((__t = ( question.value )) == null ? '' : __t) +
+'\n\n  </textarea>\n</div>\n';
+
+}
+return __p
+};
+
 this["JST"]["free-text-question"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
@@ -107,7 +207,47 @@ __p += '<div class="question free-text ' +
 '"\n         value="' +
 ((__t = ( question.value )) == null ? '' : __t) +
 '"\n         placeholder="' +
-((__t = ( question.helpText() )) == null ? '' : __t) +
+((__t = ( question.placeholder() )) == null ? '' : __t) +
+'"\n         ' +
+((__t = ( question.isRequired() )) == null ? '' : __t) +
+'\n  />\n</div>\n';
+
+}
+return __p
+};
+
+this["JST"]["hidden-question"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<input type="hidden"\n  id="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'"\n  name="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'"\n  value="' +
+((__t = ( question.value )) == null ? '' : __t) +
+'"\n/>\n';
+
+}
+return __p
+};
+
+this["JST"]["numeric-question"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="question numeric ' +
+((__t = ( question.isRequired() )) == null ? '' : __t) +
+'">\n  <label for="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'">\n    ' +
+((__t = ( question.questionText() )) == null ? '' : __t) +
+'\n  </label>\n\n  <input type="number"\n         id="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'"\n         name="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'"\n         value="' +
+((__t = ( question.value )) == null ? '' : __t) +
 '"\n         ' +
 ((__t = ( question.isRequired() )) == null ? '' : __t) +
 '\n  />\n</div>\n';
@@ -130,6 +270,22 @@ __p += '\n    ' +
 '\n  ';
  }); ;
 __p += '\n</fieldset>\n';
+
+}
+return __p
+};
+
+this["JST"]["statement-question"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="question statement">\n  <label for="' +
+((__t = ( question.questionId() )) == null ? '' : __t) +
+'">\n    ' +
+((__t = ( question.questionText() )) == null ? '' : __t) +
+'\n  </label>\n\n  <p>\n    ' +
+((__t = ( question.content_html() )) == null ? '' : __t) +
+'\n  </p>\n</div>\n';
 
 }
 return __p
@@ -297,6 +453,20 @@ window.RequestPages.Question.create = function(questionJson, currentValue) {
         return RequestPages.Question.FreeText;
       case 'CHOICE':
         return RequestPages.Question.Choice;
+      case 'DATE':
+        return RequestPages.Question.Date;
+      case 'NUMERIC':
+        return RequestPages.Question.Numeric;
+      case 'STATEMENT':
+        return RequestPages.Question.Statement;
+      case 'HIDDEN':
+        return RequestPages.Question.Hidden;
+      case 'FILE':
+        return RequestPages.Question.File;
+      case 'CHECKBOX':
+        return RequestPages.Question.Checkbox;
+      case 'FREE_AREA':
+        return RequestPages.Question.FreeArea;
       default:
         return function(question) { return question; };
     }
@@ -307,6 +477,13 @@ window.RequestPages.Question.create = function(questionJson, currentValue) {
 };
 
 window.RequestPages.Question.init = function() {};
+
+window.RequestPages.Question.Checkbox = function(question) {
+
+  question.template = 'checkbox-question';
+
+  return question;
+};
 
 window.RequestPages.Question.Choice = function(question) {
 
@@ -335,11 +512,67 @@ window.RequestPages.Question.Choice = function(question) {
   return question;
 };
 
+window.RequestPages.Question.Date = function(question) {
+
+  question.template = 'date-question';
+
+  return question;
+};
+
+window.RequestPages.Question.File = function(question) {
+
+  question.template = 'file-question';
+
+  return question;
+};
+
+window.RequestPages.Question.FreeArea = function(question) {
+
+  question.template = 'free-area-question';
+
+  question.placeholder = _.bind(function() {
+    return this.dna.placeholder;
+  }, question);
+
+  return question;
+};
+
 window.RequestPages.Question.FreeText = function(question) {
 
   question.template = 'free-text-question';
 
-  question.placeholder = _.bind(function() { return this.dna.placeholder; }, question);
+  question.placeholder = _.bind(function() {
+    return this.dna.placeholder;
+  }, question);
+
+  return question;
+};
+
+window.RequestPages.Question.Hidden = function(question) {
+
+  question.template = 'hidden-question';
+
+  return question;
+};
+
+window.RequestPages.Question.Numeric = function(question) {
+
+  question.template = 'numeric-question';
+
+  return question;
+};
+
+window.RequestPages.Question.Statement = function(question) {
+
+  question.template = 'statement-question';
+
+  question.content_plain = _.bind(function() {
+    return this.dna.content_plain;
+  }, question);
+
+  question.content_html = _.bind(function() {
+    return this.dna.content_html;
+  }, question);
 
   return question;
 };
