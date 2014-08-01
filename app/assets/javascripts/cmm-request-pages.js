@@ -304,11 +304,12 @@ return __p
 };
 window.RequestPages = function(patientId, prescriptionId, paRequestId) {
 
-  this.patientId      = patientId;
-  this.prescriptionId = prescriptionId;
-  this.paRequestId    = paRequestId;
+  this.patientId       = patientId;
+  this.prescriptionId  = prescriptionId;
+  this.paRequestId     = paRequestId;
 
-  this.selector       = '.request-pages';
+  this.defaultSelector = '.request-pages';
+  this.container       = $(this.defaultSelector);
 
   this._resourceUrl = _.bind(function() {
     return '/patients/'      + this.patientId      +
@@ -320,13 +321,17 @@ window.RequestPages = function(patientId, prescriptionId, paRequestId) {
 
   this._getSuccessCallback = _.bind(function(data) {
     this.form = new RequestPages.Form(data['request_page']);
-    $(this.selector).html(this.form.render());
+    $(this.container).html(this.form.render());
 
   }, this);
 
-  $.get(this._resourceUrl(), this._getSuccessCallback);
+  this.showForm = _.bind(function() {
+    $.get(this._resourceUrl(), this._getSuccessCallback);
+
+  }, this);
 
 };
+
 
 window.RequestPages.Form = function(requestPages) {
   this.currentValues = requestPages['data']['pa_request'];
@@ -390,6 +395,22 @@ window.RequestPages.Form.Action = function(actionJson) {
     return JST[this.template]({ action: this });
   }, this);
 };
+
+(function($) {
+  $.fn.showRequestPagesForm = function() {
+    $.each(this, _.bind(function() {
+      var patientId      = this.data('patient-id');
+      var prescriptionId = this.data('prescription-id');
+      var paRequestId    = this.data('pa-request-id');
+      var requestPages   = new RequestPages(patientId, prescriptionId, paRequestId);
+
+      requestPages.container = this;
+      requestPages.showForm();
+    }, this));
+    return this;
+  };
+}(jQuery));
+
 
 window.RequestPages.QuestionSet = function(questionSetJson, currentValues) {
   this.title = questionSetJson['title'];
